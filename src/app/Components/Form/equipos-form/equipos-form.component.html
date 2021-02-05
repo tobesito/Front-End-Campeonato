@@ -1,5 +1,6 @@
 <div class="admin-panel">
-    <h1>Agregar un Equipo</h1>
+    <h1 *ngIf="!modoEditar">Agregar un Equipo</h1>
+    <h1 *ngIf="modoEditar">Editar Equipo: {{nombre}}</h1>
     <input type="text" [(ngModel)]="nombre" placeholder="Nombre">
     <input type="text" [(ngModel)]="paisRepresentado" placeholder="País representado">
     <input type="text" [(ngModel)]="club" placeholder="Club">

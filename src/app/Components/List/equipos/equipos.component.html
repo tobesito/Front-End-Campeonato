@@ -22,10 +22,10 @@
             </div>
   
             <div *ngFor="let equipo of equipos" class="results">
-              <div class="nombre cell">     {{equipo.nombre}}      </div>
-              <div class="paisRepresentado cell">  {{equipo.paisRepresentado}}   </div>
-              <div class="club cell">  {{equipo.club}}   </div>
-              <div class="entrenador cell">  {{equipo.entrenador}}   </div>
+              <div class="nombre cell">            {{equipo.nombre}}            </div>
+              <div class="paisRepresentado cell">  {{equipo.paisRepresentado}}  </div>
+              <div class="club cell">              {{equipo.club}}              </div>
+              <div class="entrenador cell">        {{equipo.entrenador}}        </div>
               <div class="acciones cell">
                   <button title="Eliminar"  class="delete_button" (click)="delete(equipo)">                              </button>
                   <button title="Modificar" class="modify_button" routerLink="/equipos/editar/{{equipo.equipoid}}">      </button>

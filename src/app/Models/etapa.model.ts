@@ -1,0 +1,12 @@
+export interface Etapa {
+    etapaid?: number;
+    nombre: string;
+
+    anteriorEtapaid: number;
+    anteriorEtapa?: Etapa;
+
+    siguienteEtapaid: number;
+    siguienteEtapa?: Etapa;
+    
+    torneoid: number;
+};
