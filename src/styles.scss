@@ -1,0 +1,206 @@
+/* You can add global styles to this file, and also import other style files */
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    background: url("./assets/fondoDeportes.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+header {
+    width: 100vw;
+    height: 100px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    .logo_box {
+        background-image: url("./assets/logoDeportes.jpg");
+        height: 80px;
+        width: 300px;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position-y: center;
+        margin: 10px 20px;
+        align-self: flex-start;
+        @media screen and (max-width: 497px) {
+            width: 200px;
+            margin-left: 4px;
+            margin-top: 7px;
+        }
+    }
+
+    .link_box {
+        height: 80px;
+        margin: 18px 10px;
+        align-self: flex-end;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        button {
+            border-radius: 9px;
+            width: 150px;
+            height: 40px;
+            background-color: #415D65;
+            color: white;
+            text-align: center;
+            @media screen and (max-width: 480px) {
+                width: 60px;
+                margin-right: 5px;
+              }
+        }
+    }
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.outer_container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: top;
+  
+    .big_container {
+        width: 90%;
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+    
+        .top_bar {
+            height: 40px;
+            background-color: white;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            div.notice {
+            margin-left: 20px;
+            div.sub-text {font-size: 0.8em; color: red};
+            }
+        }   
+    
+        .transparent_bg {
+            background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5));
+            height: auto;
+            min-height: 400px;
+            width: 100%;
+            @media screen and (max-width: 480px) {
+                width: 100%;
+                height: 100%;
+            }
+  
+            .container {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                
+  
+                .pane {
+                    margin-top: 10px;
+                    background-color: white;
+                    width: 80%;
+                    height: 80%;
+                    padding: 20px;
+                    .results {
+                        display: flex;
+                        flex-direction: row;
+                        .mobile {
+                        display: none;
+                            @media screen and (max-width: 599px) {
+                                display: block;
+                            }
+                        }
+                        .fullscreen {
+                            display: none;
+                            @media screen and (min-width: 600px) {
+                                display: block;
+                            }
+                        }
+                    }     
+                    .headers {
+                        display: flex;
+                        flex-direction: row;
+                        border-bottom: 1px solid #ccc;
+                        width: 100%;
+                    }
+                    .cell {
+                        flex: 1;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.delete_button{
+    height: 20px;
+    width: 20px;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 5px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url("./assets/delete.jpg");
+}
+.modify_button{
+    height: 20px;
+    width: 20px;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 5px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url("./assets/modify.png");
+}
+.associate_button{
+    height: 20px;
+    width: 20px;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 5px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url("./assets/asociar.jpg");
+}
+
+.add_profesor_button{
+    height: 20px;
+    width: 20px;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 5px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url("./assets/iconoProfesor.png");
+}
+
+.add_telefono_button{
+    height: 20px;
+    width: 20px;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 5px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url("./assets/telefono.jpg");
+}
+
+.add_button{
+    height: 20px;
+    width: 20px;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 5px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url("./assets/add.png");
+}
