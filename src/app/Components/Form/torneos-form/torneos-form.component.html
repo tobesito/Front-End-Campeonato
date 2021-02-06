@@ -6,7 +6,7 @@
     <input type="text" [(ngModel)]="fechaInicio" placeholder="FechaInicio">
     <input type="text" [(ngModel)]="fechaFin" placeholder="Fecha Fin">
     <input type="text" [(ngModel)]="jugadoresPorEquipo" placeholder="Jugadores por equipo">
-    <input type="text" [(ngModel)]="observaciones" placeholder="Observaciones">asdad
+    <input type="text" [(ngModel)]="observaciones" placeholder="Observaciones">
 
     <button *ngIf="!modoEditar" (click)="sendTorneo()" routerLink="/torneos/list">Crear Torneo</button>
     <button *ngIf="modoEditar" (click)="updateTorneo()" routerLink="/torneos/list">Modificar Torneo</button>
