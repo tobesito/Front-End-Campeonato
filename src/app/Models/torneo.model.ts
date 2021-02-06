@@ -1,5 +1,5 @@
 export interface Torneo {
-    torneoid: number;
+    torneoid?: number;
 	nombre: string;
 	lugar: string;
 	fechaInicio: Date;
