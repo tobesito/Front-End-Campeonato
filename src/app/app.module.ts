@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
 
 //Lists Imports
 import { EquiposComponent } from './Components/List/equipos/equipos.component';
-import { EtapasComponent } from './Components/List/etapas/etapas.component';
 import { JugadoresComponent } from './Components/List/jugadores/jugadores.component';
 import { PartidosComponent } from './Components/List/partidos/partidos.component';
 import { TorneosComponent } from './Components/List/torneos/torneos.component';
@@ -28,7 +27,6 @@ import { HomeComponent } from './Components/home/home.component';
   declarations: [
     AppComponent,
     EquiposComponent,
-    EtapasComponent,
     JugadoresComponent,
     PartidosComponent,
     TorneosComponent,

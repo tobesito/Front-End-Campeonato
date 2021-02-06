@@ -1,3 +1,5 @@
+import { Torneo } from "./torneo.model";
+
 export interface Etapa {
     etapaid?: number;
     nombre: string;
@@ -9,4 +11,5 @@ export interface Etapa {
     siguienteEtapa?: Etapa;
     
     torneoid: number;
+    torneo: Torneo;
 };

@@ -34,7 +34,7 @@ export class EquiposComponent implements OnInit {
   }
 
   delete(equipo: Equipo){
-    if (window.confirm('Está seguro que desea eliminar a ' + equipo.nombre + '?')){
+    if (window.confirm('Está seguro que desea eliminar a: ' + equipo.nombre + '?')){
       this.equiposService.deleteEquipo(equipo.equipoid).subscribe(data =>{
         if(data && data['affected']){
           this.refresh();
