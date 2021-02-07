@@ -18,15 +18,12 @@ export class EquiposFormComponent implements OnInit {
   loading = true;
   modoEditar: boolean = false;
 
-
-  equipo_id: number;
-  nombre: string;
-  pais_representado: string;
-  club: string;
-  entrenador: string;
-
-  torneoid: number;
-  jugadoresPorEquipo: number;
+  equipo: Equipo = {
+    nombre: '',
+    pais_representado: '',
+    club: '',
+    entrenador: '',
+  }
 
   ngOnInit(): void {
     this.modoEditar = this._router.url.indexOf('editar') !== -1;
@@ -38,39 +35,21 @@ export class EquiposFormComponent implements OnInit {
     }
   }
 
-  // sendEquipo() {
-  //   const equipo: Equipo = {
-  //     nombre: this.nombre,
-  //     pais_representado: this.pais_representado,
-  //     club: this.club,
-  //     entrenador: this.entrenador,
-  //   }
+  sendEquipo() {
+    this.equipoService.postEquipo(this.equipo).subscribe(data => {});
+  }
 
-  //   this.equipoService.postEquipo(equipo).subscribe(data => {});
-  // }
-
-  // updateEquipo() {
-  //   const equipo: Equipo = {
-  //     equipo_id: this.equipo_id,
-  //     nombre: this.nombre,
-  //     pais_representado: this.pais_representado,
-  //     club: this.club,
-  //     entrenador: this.entrenador,
-  //   }
-
-  //   this.equipoService.updateEquipo(equipo).subscribe(data => {
-  //   });
-  // }
+  updateEquipo() {
+    this.equipoService.updateEquipo(this.equipo).subscribe(data => {
+    });
+  }
 
   getEquipo(id) {
     this.equipoService.getEquipo(id)
       .subscribe(
         equipo => (
-          this.equipo_id = equipo.equipo_id,
-          this.nombre = equipo.nombre,
-          this.pais_representado = equipo.pais_representado,
-          this.club = equipo.club,
-          this.entrenador = equipo.entrenador
+          this.equipo = equipo,
+          this.loading = false
         ),
         err => {
           alert(`equipo no encontrada (${id}):\n` +
@@ -79,6 +58,5 @@ export class EquiposFormComponent implements OnInit {
         }
       )
   }
-
 
 }

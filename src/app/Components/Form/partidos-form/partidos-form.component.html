@@ -1,1 +1,12 @@
-<p>partidos-form works!</p>
+<div class="admin-panel">
+    <h1 *ngIf="!modoEditar">Crear Partido</h1>
+    <h1 *ngIf="modoEditar">Editar Partido</h1>
+    
+    <input type="text" [(ngModel)]="partido.fecha_hora" placeholder="Fecha y Hora">
+    <input type="text" [(ngModel)]="partido.orden_partido" placeholder="Orden del partido">
+    <input type="text" [(ngModel)]="partido.estado" placeholder="Estado">
+
+    <button *ngIf="!modoEditar" (click)="sendPartido()" routerLink="/partidos/list">Crear Partido</button>
+    <button *ngIf="modoEditar" (click)="updatePartido()" routerLink="/partidos/list">Modificar Partido</button>
+
+</div>

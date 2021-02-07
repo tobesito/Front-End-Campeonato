@@ -25,6 +25,7 @@ export class TorneosFormComponent implements OnInit {
     lugar: "",
     fecha_inicio: null,
     fecha_fin: null,
+    cantidad_equipos: null,
     jugadores_por_equipo: null,
     observaciones: ""
   };

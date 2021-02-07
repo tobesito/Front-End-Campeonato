@@ -1,1 +1,10 @@
-<p>jugadores-form works!</p>
+<div class="admin-panel">
+    <h1 *ngIf="!modoEditar">Crear Jugador</h1>
+    <h1 *ngIf="modoEditar">Editar Jugador: {{jugador.nombre}}</h1>
+    
+    <input type="text" [(ngModel)]="jugador.nombre" placeholder="Nombre">
+    <input type="text" [(ngModel)]="jugador.posicion" placeholder="Posicion">
+
+    <button *ngIf="!modoEditar" (click)="sendJugador()" routerLink="/jugadores/list">Crear Jugador</button>
+    <button *ngIf="modoEditar" (click)="updateJugador()" routerLink="/jugadores/list">Modificar Jugador</button>
+</div>

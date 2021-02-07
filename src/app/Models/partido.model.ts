@@ -3,11 +3,11 @@ import { Etapa } from "./etapa.model";
 
 export interface Partido {
     partido_id?: number;
-    fecha_hora: Date;
+    fecha_hora: Date | string;
     orden_partido: number;
-    //estado: Estado; //pendiente, en juego, terminado, suspendido
-    puntos_equipo1: number;
-    puntos_equipo2: number;
+    estado: string; //pendiente, en juego, terminado, suspendido
+    puntos_equipo1?: number;
+    puntos_equipo2?: number;
 
     equipo1_id?: number;
     equipo1?: Equipo;
@@ -15,7 +15,7 @@ export interface Partido {
     equipo2_id?: number;
     equipo2?: Equipo;
     
-    etapa: Etapa;
+    etapa?: Etapa;
     etapa_id?: number
 
 };

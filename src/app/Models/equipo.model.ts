@@ -7,5 +7,5 @@ export interface Equipo {
     club?: string;
     entrenador: string;
 
-    jugadores: Jugador[];
+    jugadores?: Jugador[];
 };

@@ -1,1 +1,49 @@
-<p>jugadores works!</p>
+<div class="outer_container">
+
+    <div class="big_container">
+      <div class="top_bar">
+        <div class="notice">Jugadores
+          <div class="sub-text" *ngIf="loading">CARGANDO DATOS, POR FAVOR ESPERE! </div>
+        </div>
+      </div>
+      <div class="transparent_bg">
+        <div class="container">
+          <div class="pane">
+            <div class="headers">
+              <div class="nombre cell">           Nombre            </div>
+              <!-- <div class="equipo cell">           Equipo            </div> -->
+              <div class="posicion cell">         Posicion          </div>
+              <!-- <div class="club cell">             Club              </div> -->
+              <div class="acciones cell">         Acciones          </div>
+            </div>
+  
+            <div *ngIf="jugadoresNoEncontrados">
+              -- No se encontraron resultados de: Jugadores --
+            </div>
+  
+            <div *ngFor="let jugador of jugadores" class="results">
+              <div class="nombre cell">            {{jugador.nombre}}            </div>
+              <!-- <div class="equipo cell">            {{jugador.equipo.nombre}}     </div> -->
+              <div class="posicion cell">          {{jugador.posicion}}          </div>
+              <!-- <div class="club cell">              {{jugador.equipo.club}}       </div> -->
+              <div class="acciones cell">
+                  <button title="Eliminar"  class="delete_button" (click)="delete(jugador)">                              </button>
+                  <button title="Modificar" class="modify_button" routerLink="/jugadores/editar/{{jugador.jugador_id}}">  </button>
+             </div>
+            </div>
+            
+            <div class="headers">
+              <div class="nombre cell">-</div>
+              <!-- <div class="equipo cell">-</div> -->
+              <div class="posicion cell">-</div>
+              <!-- <div class="club cell">-</div> -->
+              <div class="acciones cell">
+                <button title="Agregar" routerLink="/jugadores/nuevo" class="add_button"></button>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
