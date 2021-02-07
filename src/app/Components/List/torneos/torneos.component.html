@@ -14,8 +14,6 @@
               <div class="lugar cell">              Lugar                </div>
               <div class="fechaInicio cell">        Fecha de inicio      </div>
               <div class="fechaFin cell">           Fecha de fin         </div>
-              <div class="jugadoresPorEquipo cell"> Jugadores por equipo </div>
-              <div class="observaciones cell">      Observaciones        </div>
               <div class="acciones cell">           Acciones             </div>
             </div>
   
@@ -28,11 +26,10 @@
               <div class="lugar cell">              {{torneo.lugar}}              </div>
               <div class="fechaInicio cell">        {{torneo.fechaInicio}}        </div>
               <div class="fechaFin cell">           {{torneo.fechaFin}}           </div>
-              <div class="jugadoresPorEquipo cell"> {{torneo.jugadoresPorEquipo}} </div>
-              <div class="observaciones cell">      {{torneo.observaciones}}      </div>
               <div class="acciones cell">
                   <button title="Eliminar"  class="delete_button" (click)="delete(torneo)">                              </button>
                   <button title="Modificar" class="modify_button" routerLink="/torneos/editar/{{torneo.torneoid}}">      </button>
+                  <button title="Ver" class="ver_button" routerLink="/torneos/ver/{{torneo.torneoid}}">      </button>
              </div>
             </div>
             
@@ -41,8 +38,6 @@
               <div class="lugar cell">-</div>
               <div class="fechaInicio cell">-</div>
               <div class="fechaFin cell">-</div>
-              <div class="jugadoresPorEquipo cell">-</div>
-              <div class="observaciones cell">-</div>
               <div class="acciones cell">
                 <button title="Agregar" routerLink="/torneos/nuevo" class="add_button"></button>
               </div>

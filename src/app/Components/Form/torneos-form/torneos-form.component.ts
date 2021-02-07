@@ -17,17 +17,22 @@ export class TorneosFormComponent implements OnInit {
 
   loading = true;
   modoEditar: boolean = false;
+  modoVer: boolean = false;
+  verEtapa: boolean = false;
 
-  torneoid: number;
-  nombre: string;
-  lugar: string;
-  fechaInicio: Date;
-  fechaFin: Date;
-  jugadoresPorEquipo: number;
-  observaciones: string;
+  torneo: Torneo = {
+    nombre: "",
+    lugar: "",
+    fechaInicio: null,
+    fechaFin: null,
+    jugadoresPorEquipo: null,
+    observaciones: ""
+  };
 
   ngOnInit(): void {
     this.modoEditar = this._router.url.indexOf('editar') !== -1;
+    this.modoVer = this._router.url.indexOf('ver') !== -1;
+
     const id: number = parseInt(this.activatedRoute.snapshot.paramMap.get('id'), 10);
     if (id) {
       this.getTorneo(id);
@@ -35,30 +40,11 @@ export class TorneosFormComponent implements OnInit {
   }
 
   sendTorneo() {
-    const torneo: Torneo = {
-      nombre: this.nombre,
-      lugar: this.lugar,
-      fechaInicio: this.fechaInicio,
-      fechaFin: this.fechaFin,
-      jugadoresPorEquipo: this.jugadoresPorEquipo,
-      observaciones: this.observaciones,
-    }
-
-    this.torneoService.postTorneo(torneo).subscribe(data => {});
+    this.torneoService.postTorneo(this.torneo).subscribe(data => { });
   }
 
   updateTorneo() {
-    const torneo: Torneo = {
-      torneoid: this.torneoid,
-      nombre: this.nombre,
-      lugar: this.lugar,
-      fechaInicio: this.fechaInicio,
-      fechaFin: this.fechaFin,
-      jugadoresPorEquipo: this.jugadoresPorEquipo,
-      observaciones: this.observaciones,
-    }
-
-    this.torneoService.updateTorneo(torneo).subscribe(data => {
+    this.torneoService.updateTorneo(this.torneo).subscribe(data => {
     });
   }
 
@@ -66,13 +52,8 @@ export class TorneosFormComponent implements OnInit {
     this.torneoService.getTorneo(id)
       .subscribe(
         torneo => (
-          this.torneoid = torneo.torneoid,
-          this.nombre = torneo.nombre,
-          this.lugar = torneo.lugar,
-          this.fechaInicio = torneo.fechaInicio,
-          this.fechaFin = torneo.fechaFin,
-          this.jugadoresPorEquipo = torneo.jugadoresPorEquipo,
-          this.observaciones = torneo.observaciones
+          this.torneo = torneo,
+          this.loading = false
         ),
         err => {
           alert(`torneo no encontrada (${id}):\n` +

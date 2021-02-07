@@ -1,15 +1,18 @@
+import { Partido } from "./partido.model";
 import { Torneo } from "./torneo.model";
 
 export interface Etapa {
     etapaid?: number;
     nombre: string;
 
-    anteriorEtapaid: number;
+    anteriorEtapaid?: number;
     anteriorEtapa?: Etapa;
 
-    siguienteEtapaid: number;
+    siguienteEtapaid?: number;
     siguienteEtapa?: Etapa;
     
     torneoid: number;
-    torneo: Torneo;
+    //torneo: Torneo;
+
+    partidos?: Partido[];
 };

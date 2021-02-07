@@ -34,6 +34,7 @@ const routes: Routes = [
   {path: 'torneos/list', component: TorneosComponent},
   {path: 'torneos/nuevo', component: TorneosFormComponent},
   {path: 'torneos/editar/:id', component: TorneosFormComponent},
+  {path: 'torneos/ver/:id', component: TorneosFormComponent},
 
 ];
 @NgModule({

@@ -17,6 +17,7 @@ export interface Partido {
     
     etapa: Etapa;
     etapaid?: number
+
 };
 
 export enum Estado {

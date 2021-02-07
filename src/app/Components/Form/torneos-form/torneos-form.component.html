@@ -1,14 +1,76 @@
-<div class="admin-panel">
-    <h1 *ngIf="!modoEditar">Agregar un Torneo</h1>
-    <h1 *ngIf="modoEditar">Editar Torneo: {{nombre}}</h1>
-    <input type="text" [(ngModel)]="nombre" placeholder="Nombre">
-    <input type="text" [(ngModel)]="lugar" placeholder="Lugar">
-    <input type="text" [(ngModel)]="fechaInicio" placeholder="FechaInicio">
-    <input type="text" [(ngModel)]="fechaFin" placeholder="Fecha Fin">
-    <input type="text" [(ngModel)]="jugadoresPorEquipo" placeholder="Jugadores por equipo">
-    <input type="text" [(ngModel)]="observaciones" placeholder="Observaciones">asdsa
+<div class="admin-panel" *ngIf="!loading || (!modoEditar && !modoVer)">
+    <h1 *ngIf="!modoEditar && !modoVer">Crear Torneo</h1>
+    <h1 *ngIf="modoEditar  && !modoVer">Editar Torneo: {{nombre}}</h1>
+    <h1 *ngIf="modoVer">Torneo: {{nombre}}</h1>
+    
+    <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.nombre" placeholder="Nombre">
+    <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.lugar" placeholder="Lugar">
+    <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.fechaInicio" placeholder="FechaInicio">
+    <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.fechaFin" placeholder="Fecha Fin">
+    <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.cantEquipos" placeholder="Cantidad de equipos">
+    <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.jugadoresPorEquipo" placeholder="Jugadores por equipo">
+    <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.observaciones" placeholder="Observaciones">
+    <div class="etapas" *ngIf="modoEditar || modoVer">
+      <select>
+        <option [value]="etapa.nombre" *ngFor="let etapa of torneo.etapas">{{etapa.nombre}}</option>
+      </select>
+      <!-- <button class="crear_etapa_button" *ngIf="torneo.etapas != '' && (torneo.etapas < torneo.cantidad_equipos)" (click)="crearEtapa()"> Ver </button> -->
+      <!-- <button class="ver_etapa_button" (click)="verEtapa()"> Ver </button> -->
+    </div>
 
-    <button *ngIf="!modoEditar" (click)="sendTorneo()" routerLink="/torneos/list">Crear Torneo</button>
-    <button *ngIf="modoEditar" (click)="updateTorneo()" routerLink="/torneos/list">Modificar Torneo</button>
+    <button *ngIf="!modoEditar && !modoVer" (click)="sendTorneo()" routerLink="/torneos/list">Crear Torneo</button>
+    <button *ngIf="modoEditar && !modoVer" (click)="updateTorneo()" routerLink="/torneos/list">Modificar Torneo</button>
+
+    <!-- <div *ngIf="torneo.etapas != '' ">
+        <div class="outer_container">
+
+            <div class="big_container">
+              <div class="top_bar">
+                <div class="notice">Etapa 1
+                  <div class="sub-text"></div>
+                </div>
+              </div>
+              <div class="transparent_bg">
+                <div class="container">
+                  <div class="pane">
+                    <div class="headers">
+                      <div class="nombre cell">   Partido              </div>
+                      <div class="equipo cell">   Equipo 1 vs Equipo 2 </div>
+                      <div class="estado cell">    Estado               </div>
+                      <div class="acciones cell"> Acciones             </div>
+                    </div>
+          
+                    <div *ngFor="let partido of torneo.etapas[0].partidos" class="results">
+                      <div class="nombre cell"> {{partido.ordenPartido}}                                 </div>
+                      <div class="equipo cell"> {{partido.equipo1.nombre}} vs {{partido.equipo2.nombre}} </div>
+                      <div class="estado cell">  {{partido.estado}}                                       </div>
+                      <div class="acciones cell">
+                          <button title="Eliminar"  class="delete_button" (click)="delete(torneo)">                              </button>
+                          <button title="Modificar" class="modify_button" routerLink="/torneos/editar/{{torneo.torneoid}}">      </button>
+                          <button title="Ver" class="ver_button" routerLink="/torneos/ver/{{torneo.torneoid}}">      </button>
+                     </div>
+                    </div>
+                    
+                    <div class="headers">
+                      <div class="nombre cell">-</div>
+                      <div class="equipo cell">-</div>
+                      <div class="estado cell">-</div>
+                      <div class="acciones cell">
+                        <button title="Agregar" routerLink="/torneos/nuevo" class="add_button"></button>
+                      </div>
+                    </div>
+          
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+    </div> -->
 
 </div>
+
+
+
+
+

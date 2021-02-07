@@ -18,43 +18,49 @@ export class EquiposFormComponent implements OnInit {
   loading = true;
   modoEditar: boolean = false;
 
+
   equipoid: number;
   nombre: string;
   paisRepresentado: string;
   club: string;
   entrenador: string;
 
+  torneoid: number;
+  jugadoresPorEquipo: number;
+
   ngOnInit(): void {
     this.modoEditar = this._router.url.indexOf('editar') !== -1;
+ 
+
     const id: number = parseInt(this.activatedRoute.snapshot.paramMap.get('id'), 10);
     if (id) {
       this.getEquipo(id);
     }
   }
 
-  sendEquipo() {
-    const equipo: Equipo = {
-      nombre: this.nombre,
-      paisRepresentado: this.paisRepresentado,
-      club: this.club,
-      entrenador: this.entrenador,
-    }
+  // sendEquipo() {
+  //   const equipo: Equipo = {
+  //     nombre: this.nombre,
+  //     paisRepresentado: this.paisRepresentado,
+  //     club: this.club,
+  //     entrenador: this.entrenador,
+  //   }
 
-    this.equipoService.postEquipo(equipo).subscribe(data => {});
-  }
+  //   this.equipoService.postEquipo(equipo).subscribe(data => {});
+  // }
 
-  updateEquipo() {
-    const equipo: Equipo = {
-      equipoid: this.equipoid,
-      nombre: this.nombre,
-      paisRepresentado: this.paisRepresentado,
-      club: this.club,
-      entrenador: this.entrenador,
-    }
+  // updateEquipo() {
+  //   const equipo: Equipo = {
+  //     equipoid: this.equipoid,
+  //     nombre: this.nombre,
+  //     paisRepresentado: this.paisRepresentado,
+  //     club: this.club,
+  //     entrenador: this.entrenador,
+  //   }
 
-    this.equipoService.updateEquipo(equipo).subscribe(data => {
-    });
-  }
+  //   this.equipoService.updateEquipo(equipo).subscribe(data => {
+  //   });
+  // }
 
   getEquipo(id) {
     this.equipoService.getEquipo(id)
