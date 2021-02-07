@@ -27,7 +27,7 @@ export class PartidosService {
   }
 
   updatePartido(partido: Partido) {
-    return this.http.put(`${this.backEndURL}/partidos/${partido.partidoid}`,partido);
+    return this.http.put(`${this.backEndURL}/partidos/${partido.partido_id}`,partido);
   }
 
   deletePartido(id: number) {

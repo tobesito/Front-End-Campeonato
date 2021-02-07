@@ -5,10 +5,10 @@
     
     <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.nombre" placeholder="Nombre">
     <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.lugar" placeholder="Lugar">
-    <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.fechaInicio" placeholder="FechaInicio">
-    <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.fechaFin" placeholder="Fecha Fin">
-    <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.cantEquipos" placeholder="Cantidad de equipos">
-    <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.jugadoresPorEquipo" placeholder="Jugadores por equipo">
+    <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.fecha_inicio" placeholder="FechaInicio">
+    <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.fecha_fin" placeholder="Fecha Fin">
+    <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.cantidad_equipos" placeholder="Cantidad de equipos">
+    <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.jugadores_por_equipo" placeholder="Jugadores por equipo">
     <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.observaciones" placeholder="Observaciones">
     <div class="etapas" *ngIf="modoEditar || modoVer">
       <select>
@@ -41,13 +41,13 @@
                     </div>
           
                     <div *ngFor="let partido of torneo.etapas[0].partidos" class="results">
-                      <div class="nombre cell"> {{partido.ordenPartido}}                                 </div>
+                      <div class="nombre cell"> {{partido.orden_partido}}                                 </div>
                       <div class="equipo cell"> {{partido.equipo1.nombre}} vs {{partido.equipo2.nombre}} </div>
                       <div class="estado cell">  {{partido.estado}}                                       </div>
                       <div class="acciones cell">
                           <button title="Eliminar"  class="delete_button" (click)="delete(torneo)">                              </button>
-                          <button title="Modificar" class="modify_button" routerLink="/torneos/editar/{{torneo.torneoid}}">      </button>
-                          <button title="Ver" class="ver_button" routerLink="/torneos/ver/{{torneo.torneoid}}">      </button>
+                          <button title="Modificar" class="modify_button" routerLink="/torneos/editar/{{torneo.torneo_id}}">      </button>
+                          <button title="Ver" class="ver_button" routerLink="/torneos/ver/{{torneo.torneo_id}}">      </button>
                      </div>
                     </div>
                     

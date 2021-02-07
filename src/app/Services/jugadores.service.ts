@@ -27,7 +27,7 @@ export class JugadoresService {
   }
 
   updateJugador(jugador: Jugador) {
-    return this.http.put(`${this.backEndURL}/jugadores/${jugador.jugadorid}`,jugador);
+    return this.http.put(`${this.backEndURL}/jugadores/${jugador.jugador_id}`,jugador);
   }
 
   deleteJugador(id: number) {

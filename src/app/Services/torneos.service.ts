@@ -27,7 +27,7 @@ export class TorneosService {
   }
 
   updateTorneo(torneo: Torneo) {
-    return this.http.put(`${this.backEndURL}/torneos/${torneo.torneoid}`,torneo);
+    return this.http.put(`${this.backEndURL}/torneos/${torneo.torneo_id}`,torneo);
   }
 
   deleteTorneo(id: number) {

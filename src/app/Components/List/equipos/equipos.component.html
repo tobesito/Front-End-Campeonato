@@ -11,7 +11,7 @@
           <div class="pane">
             <div class="headers">
               <div class="nombre cell">           Nombre            </div>
-              <div class="paisRepresentado cell"> Pais representado </div>
+              <div class="pais_representado cell"> Pais representado </div>
               <div class="club cell">             Club              </div>
               <div class="entrenador cell">       Entrenador        </div>
               <div class="acciones cell">         Acciones          </div>
@@ -23,21 +23,21 @@
   
             <div *ngFor="let equipo of equipos" class="results">
               <div class="nombre cell">            {{equipo.nombre}}            </div>
-              <div class="paisRepresentado cell">  {{equipo.paisRepresentado}}  </div>
+              <div class="pais_representado cell">  {{equipo.pais_representado}}  </div>
               <div class="club cell">              {{equipo.club}}              </div>
               <div class="entrenador cell">        {{equipo.entrenador}}        </div>
               <div class="acciones cell">
                   <button title="Eliminar"  class="delete_button" (click)="delete(equipo)">                              </button>
-                  <button title="Modificar" class="modify_button" routerLink="/equipos/editar/{{equipo.equipoid}}">      </button>
+                  <button title="Modificar" class="modify_button" routerLink="/equipos/editar/{{equipo.equipo_id}}">      </button>
                   <!-- <button title="Asociar"   class="associate_button" (click)="asociar(equipo)">                            </button>
-                  <button title="Profesor"  class="add_profesor_button" routerLink="/profesores/nuevo/{{equipo.equipoid}}">                         </button> -->
-                  <!-- <button title="Telefonos" routerLink="/telefonos/nuevo/{{equipo.equipoid}}" class="add_telefono_button"></button> -->
+                  <button title="Profesor"  class="add_profesor_button" routerLink="/profesores/nuevo/{{equipo.equipo_id}}">                         </button> -->
+                  <!-- <button title="Telefonos" routerLink="/telefonos/nuevo/{{equipo.equipo_id}}" class="add_telefono_button"></button> -->
              </div>
             </div>
             
             <div class="headers">
               <div class="nombre cell">-</div>
-              <div class="paisRepresentado cell">-</div>
+              <div class="pais_representado cell">-</div>
               <div class="club cell">-</div>
               <div class="entrenador cell">-</div>
               <div class="acciones cell">

@@ -1,10 +1,10 @@
 import { Equipo } from "./equipo.model";
 
 export interface Jugador {
-    jugadorid: number;
+    jugador_id: number;
 	nombre: string;
     posicion: string;
     
-	equipoid: number;
+	equipo_id: number;
 	equipo: Equipo;
 };

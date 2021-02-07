@@ -19,9 +19,9 @@ export class EquiposFormComponent implements OnInit {
   modoEditar: boolean = false;
 
 
-  equipoid: number;
+  equipo_id: number;
   nombre: string;
-  paisRepresentado: string;
+  pais_representado: string;
   club: string;
   entrenador: string;
 
@@ -41,7 +41,7 @@ export class EquiposFormComponent implements OnInit {
   // sendEquipo() {
   //   const equipo: Equipo = {
   //     nombre: this.nombre,
-  //     paisRepresentado: this.paisRepresentado,
+  //     pais_representado: this.pais_representado,
   //     club: this.club,
   //     entrenador: this.entrenador,
   //   }
@@ -51,9 +51,9 @@ export class EquiposFormComponent implements OnInit {
 
   // updateEquipo() {
   //   const equipo: Equipo = {
-  //     equipoid: this.equipoid,
+  //     equipo_id: this.equipo_id,
   //     nombre: this.nombre,
-  //     paisRepresentado: this.paisRepresentado,
+  //     pais_representado: this.pais_representado,
   //     club: this.club,
   //     entrenador: this.entrenador,
   //   }
@@ -66,9 +66,9 @@ export class EquiposFormComponent implements OnInit {
     this.equipoService.getEquipo(id)
       .subscribe(
         equipo => (
-          this.equipoid = equipo.equipoid,
+          this.equipo_id = equipo.equipo_id,
           this.nombre = equipo.nombre,
-          this.paisRepresentado = equipo.paisRepresentado,
+          this.pais_representado = equipo.pais_representado,
           this.club = equipo.club,
           this.entrenador = equipo.entrenador
         ),

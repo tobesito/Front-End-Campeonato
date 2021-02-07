@@ -27,7 +27,7 @@ export class EtapasService {
   }
 
   updateEtapa(etapa: Etapa) {
-    return this.http.put(`${this.backEndURL}/etapas/${etapa.etapaid}`,etapa);
+    return this.http.put(`${this.backEndURL}/etapas/${etapa.etapa_id}`,etapa);
   }
 
   deleteEtapa(id: number) {

@@ -1,12 +1,13 @@
 import { Etapa } from "./etapa.model";
 
 export interface Torneo {
-    torneoid?: number;
+    torneo_id?: number;
 	nombre: string;
 	lugar: string;
-	fechaInicio: Date;
-	fechaFin: Date;
-	jugadoresPorEquipo: number;
+	fecha_inicio: Date;
+	fecha_fin: Date;
+	cantidad_equipos: number;
+	jugadores_por_equipo: number;
 	observaciones: string;
 
 	etapas?: Etapa[];

@@ -1,9 +1,9 @@
 import { Jugador } from "./jugador.model";
 
 export interface Equipo {
-    equipoid?: number;
+    equipo_id?: number;
     nombre: string;
-    paisRepresentado: string;
+    pais_representado: string;
     club?: string;
     entrenador: string;
 

@@ -35,7 +35,7 @@ export class TorneosComponent implements OnInit {
 
   delete(torneo: Torneo){
     if (window.confirm('Está seguro que desea eliminar a: ' + torneo.nombre + '?')){
-      this.torneosService.deleteTorneo(torneo.torneoid).subscribe(data =>{
+      this.torneosService.deleteTorneo(torneo.torneo_id).subscribe(data =>{
         if(data && data['affected']){
           this.refresh();
         }

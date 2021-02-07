@@ -27,7 +27,7 @@ export class EquiposService {
   }
 
   updateEquipo(equipo: Equipo) {
-    return this.http.put(`${this.backEndURL}/equipos/${equipo.equipoid}`,equipo);
+    return this.http.put(`${this.backEndURL}/equipos/${equipo.equipo_id}`,equipo);
   }
 
   deleteEquipo(id: number) {
