@@ -1,11 +1,54 @@
 <div class="admin-panel">
+
     <h1 *ngIf="!modoEditar">Crear Equipo</h1>
     <h1 *ngIf="modoEditar">Editar Equipo: {{equipo.nombre}}</h1>
-    
+
     <input type="text" [(ngModel)]="equipo.nombre" placeholder="Nombre">
     <input type="text" [(ngModel)]="equipo.pais_representado" placeholder="País representado">
     <input type="text" [(ngModel)]="equipo.club" placeholder="Club">
     <input type="text" [(ngModel)]="equipo.entrenador" placeholder="Entrenador">
+
+    <div>
+        <div class="outer_container">
+
+            <div class="big_container">
+
+                <div class="transparent_bg">
+                    <div class="container">
+                        <div class="pane">
+                            <div class="headers">
+                                <div class="nombre cell"> Nombre </div>
+                                <div class="posicion cell"> Posicion </div>
+                                <div class="acciones cell"> Acciones </div>
+                            </div>
+
+                            <div *ngIf="jugadoresNoEncontrados">
+                                -- No se encontraron resultados de: Equipos --
+                            </div>
+
+                            <div *ngFor="let jugador of jugadores" class="results">
+                                <div class="nombre cell"> {{jugador.nombre}} </div>
+                                <div class="posicion cell"> {{jugador.posicion}} </div>
+                                <div class="acciones cell">
+                                    <button title="Agregar al equipo" *ngIf="jugador.equipo_id != equipo.equipo_id" class="agregar_al_equipo_button" (click)="agregarAlEquipo(jugador)"></button>
+                                    <button title="Quitar del equipo" *ngIf="jugador.equipo_id == equipo.equipo_id" class="quitar_del_equipo_button" (click)="quitarDelEquipo(jugador)"></button>
+                                </div>
+                            </div>
+
+                            <div class="headers">
+                                <div class="nombre cell">-</div>
+                                <div class="posicion cell">-</div>
+                                <div class="acciones cell">
+                                    <button title="Crear Jugador" routerLink="/jugadores/nuevo" class="add_button"></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <button *ngIf="!modoEditar" (click)="sendEquipo()" routerLink="/equipos/list">Crear Equipo</button>
     <button *ngIf="modoEditar" (click)="updateEquipo()" routerLink="/equipos/list">Modificar Equipo</button>

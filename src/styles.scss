@@ -141,71 +141,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     }
 }
 
-.delete_button{
-    height: 20px;
-    width: 20px;
-    align-items: center;
-    justify-content: space-between;
-    margin-right: 5px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-image: url("./assets/delete.jpg");
-}
-.modify_button{
-    height: 20px;
-    width: 20px;
-    align-items: center;
-    justify-content: space-between;
-    margin-right: 5px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-image: url("./assets/modify.png");
-}
-.associate_button{
-    height: 20px;
-    width: 20px;
-    align-items: center;
-    justify-content: space-between;
-    margin-right: 5px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-image: url("./assets/asociar.jpg");
-}
-
-.add_profesor_button{
-    height: 20px;
-    width: 20px;
-    align-items: center;
-    justify-content: space-between;
-    margin-right: 5px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-image: url("./assets/iconoProfesor.png");
-}
-
-.add_telefono_button{
-    height: 20px;
-    width: 20px;
-    align-items: center;
-    justify-content: space-between;
-    margin-right: 5px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-image: url("./assets/telefono.jpg");
-}
-
-.add_button{
-    height: 20px;
-    width: 20px;
-    align-items: center;
-    justify-content: space-between;
-    margin-right: 5px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-image: url("./assets/add.png");
-}
-
-.ver_button{
+.add_button, .delete_button, .modify_button, .ver_button, .add_telefono_button, 
+.add_profesor_button, .associate_button{
     height: 20px;
     width: 20px;
     align-items: center;
@@ -214,6 +151,28 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-repeat: no-repeat;
     background-size: contain;
     background-image: url("./assets/Ver.png");
+}
+.add_button{
+    background-image: url("./assets/add.png");
+}
+.delete_button{
+    background-image: url("./assets/delete.jpg");
+}
+.modify_button{
+    background-image: url("./assets/modify.png");
+}
+.ver_button{
+
+    background-image: url("./assets/Ver.png");
+}
+.add_telefono_button{
+    background-image: url("./assets/telefono.jpg");
+}
+.add_profesor_button{
+    background-image: url("./assets/iconoProfesor.png");
+}
+.associate_button{
+    background-image: url("./assets/asociar.jpg");
 }
 
 .admin-panel {

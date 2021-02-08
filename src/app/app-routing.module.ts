@@ -29,8 +29,9 @@ const routes: Routes = [
   {path: 'torneos/editar/:id', component: TorneosFormComponent},
   {path: 'torneos/ver/:id', component: TorneosFormComponent},
 
-  {path: 'etapas/nueva', component: EtapasFormComponent},
+  // {path: 'etapas/nueva', component: EtapasFormComponent},
   {path: 'etapas/editar/:id', component: EtapasFormComponent},
+  {path: 'etapas/nueva/:torneo_id', component: EtapasFormComponent},
 
   {path: 'partidos/list', component: PartidosComponent},
   {path: 'partidos/nuevo', component: PartidosFormComponent},

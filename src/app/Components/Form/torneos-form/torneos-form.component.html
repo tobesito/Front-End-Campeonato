@@ -10,24 +10,27 @@
     <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.cantidad_equipos" placeholder="Cantidad de equipos">
     <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.jugadores_por_equipo" placeholder="Jugadores por equipo">
     <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.observaciones" placeholder="Observaciones">
-    <div class="etapas" *ngIf="modoEditar || modoVer">
-      <select>
-        <option [value]="etapa.nombre" *ngFor="let etapa of torneo.etapas">{{etapa.nombre}}</option>
-      </select>
-      <!-- <button class="crear_etapa_button" *ngIf="torneo.etapas != '' && (torneo.etapas < torneo.cantidad_equipos)" (click)="crearEtapa()"> Ver </button> -->
-      <!-- <button class="ver_etapa_button" (click)="verEtapa()"> Ver </button> -->
+    <div>
+      <input type="text" class="nueva_etapa" [(ngModel)]="nombre_etapa" placeholder="Etapa">
+      <button class="etapa_button" (click)="crearEtapa()" *ngIf="torneo.etapas == ''"> Nueva </button>
+      <button class="etapa_button" (click)="crearSiguienteEtapa()" *ngIf="torneo.etapas.length > 0"> Siguiente </button>
     </div>
-
+    
     <button *ngIf="!modoEditar && !modoVer" (click)="sendTorneo()" routerLink="/torneos/list">Crear Torneo</button>
     <button *ngIf="modoEditar && !modoVer" (click)="updateTorneo()" routerLink="/torneos/list">Modificar Torneo</button>
 
-    <!-- <div *ngIf="torneo.etapas != '' ">
+    <div *ngIf="torneo.etapas != '' ">
         <div class="outer_container">
 
             <div class="big_container">
               <div class="top_bar">
-                <div class="notice">Etapa 1
-                  <div class="sub-text"></div>
+                <div class="etapas" *ngIf="modoEditar || modoVer">
+                  <!-- <select onchange="myFunction()"></select> -->
+                  <select>
+                    <option [value]="etapa.nombre" *ngFor="let etapa of torneo.etapas">{{etapa.nombre}}</option>
+                  </select>
+                  <!-- <button class="etapa_button" *ngIf="torneo.etapas != '' && (torneo.etapas < torneo.cantidad_equipos)" (click)="crearEtapa()"> Ver </button> -->
+                  <!-- <button class="etapa_button" (click)="verEtapa()"> Ver </button> -->
                 </div>
               </div>
               <div class="transparent_bg">
@@ -66,7 +69,7 @@
             </div>
             
           </div>
-    </div> -->
+    </div>
 
 </div>
 

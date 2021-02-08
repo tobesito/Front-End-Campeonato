@@ -11,8 +11,8 @@ export interface Etapa {
     siguiente_etapa_id?: number;
     siguienteEtapa?: Etapa;
     
-    torneo_id: number;
+    torneo_id?: number;
     //torneo: Torneo;
 
-    partidos?: Partido[];
+    // partidos?: Partido[];
 };

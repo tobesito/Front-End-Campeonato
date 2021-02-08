@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Etapa } from 'src/app/Models/etapa.model';
 import { Torneo } from 'src/app/Models/torneo.model';
+import { EtapasService } from 'src/app/Services/etapas.service';
 import { TorneosService } from 'src/app/Services/torneos.service';
 
 @Component({
@@ -12,13 +14,16 @@ export class TorneosFormComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
     private _router: Router,
-    private torneoService: TorneosService) {
+    private torneoService: TorneosService,
+    private etapaService: EtapasService) {
   }
 
   loading = true;
   modoEditar: boolean = false;
   modoVer: boolean = false;
   verEtapa: boolean = false;
+
+  nombre_etapa: string = '';
 
   torneo: Torneo = {
     nombre: "",
@@ -62,6 +67,23 @@ export class TorneosFormComponent implements OnInit {
           // this.volverAlListado(this._router)
         }
       )
+  }
+
+  crearEtapa(){
+    var etapa: Etapa = {
+      nombre: "",
+      anterior_etapa_id: null,
+      siguiente_etapa_id: null
+    }
+
+    if(this.nombre_etapa != ''){
+      etapa.nombre = this.nombre_etapa;
+      etapa.torneo_id = this.torneo.torneo_id;
+
+      this.etapaService.postEtapa(etapa).subscribe(data => { });
+    } else {
+      alert("El nombre de la etapa no puede estar vacío");
+    }
   }
 
 }

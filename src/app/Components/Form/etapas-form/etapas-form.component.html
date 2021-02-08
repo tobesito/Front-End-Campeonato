@@ -1,1 +1,57 @@
-<p>etapas-form works!</p>
+DESCOMENTAR O BORRAR
+<!-- <div class="admin-panel">
+
+    <h1 *ngIf="!modoEditar">Crear Etapa</h1>
+    <h1 *ngIf="modoEditar">Editar Etapa: {{etapa.nombre}}</h1>
+
+    <input type="text" [(ngModel)]="etapa.nombre" placeholder="Nombre">
+    <input type="text" [(ngModel)]="etapa.pais_representado" placeholder="País representado">
+    <input type="text" [(ngModel)]="etapa.club" placeholder="Club">
+    <input type="text" [(ngModel)]="etapa.entrenador" placeholder="Entrenador">
+
+    <div>
+        <div class="outer_container">
+
+            <div class="big_container">
+
+                <div class="transparent_bg">
+                    <div class="container">
+                        <div class="pane">
+                            <div class="headers">
+                                <div class="nombre cell"> Nombre </div>
+                                <div class="posicion cell"> Posicion </div>
+                                <div class="acciones cell"> Acciones </div>
+                            </div>
+
+                            <div *ngIf="jugadoresNoEncontrados">
+                                -- No se encontraron resultados de: Etapas --
+                            </div>
+
+                            <div *ngFor="let jugador of jugadores" class="results">
+                                <div class="nombre cell"> {{jugador.nombre}} </div>
+                                <div class="posicion cell"> {{jugador.posicion}} </div>
+                                <div class="acciones cell">
+                                    <button title="Agregar al etapa" *ngIf="jugador.etapa_id != etapa.etapa_id" class="agregar_al_etapa_button" (click)="agregarAlEtapa(jugador)"></button>
+                                    <button title="Quitar del etapa" *ngIf="jugador.etapa_id == etapa.etapa_id" class="quitar_del_etapa_button" (click)="quitarDelEtapa(jugador)"></button>
+                                </div>
+                            </div>
+
+                            <div class="headers">
+                                <div class="nombre cell">-</div>
+                                <div class="posicion cell">-</div>
+                                <div class="acciones cell">
+                                    <button title="Crear Jugador" routerLink="/jugadores/nuevo" class="add_button"></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button *ngIf="!modoEditar" (click)="sendEtapa()" routerLink="/etapas/list">Crear Etapa</button>
+    <button *ngIf="modoEditar" (click)="updateEtapa()" routerLink="/etapas/list">Modificar Etapa</button>
+
+</div> -->

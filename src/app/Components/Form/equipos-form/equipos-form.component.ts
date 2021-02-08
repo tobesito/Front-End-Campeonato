@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Equipo } from 'src/app/Models/equipo.model';
+import { Jugador } from 'src/app/Models/jugador.model';
 import { EquiposService } from 'src/app/Services/equipos.service';
+import { JugadoresService } from 'src/app/Services/jugadores.service';
 
 @Component({
   selector: 'app-equipos-form',
@@ -12,11 +14,13 @@ export class EquiposFormComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
     private _router: Router,
-    private equipoService: EquiposService) {
+    private equipoService: EquiposService,
+    private jugadorService: JugadoresService) {
   }
 
   loading = true;
   modoEditar: boolean = false;
+  jugadoresNoEncontrados: boolean = false;
 
   equipo: Equipo = {
     nombre: '',
@@ -25,14 +29,16 @@ export class EquiposFormComponent implements OnInit {
     entrenador: '',
   }
 
+  jugadores: Jugador[];
+
   ngOnInit(): void {
     this.modoEditar = this._router.url.indexOf('editar') !== -1;
  
-
     const id: number = parseInt(this.activatedRoute.snapshot.paramMap.get('id'), 10);
     if (id) {
       this.getEquipo(id);
     }
+    this.getJugadores();
   }
 
   sendEquipo() {
@@ -57,6 +63,35 @@ export class EquiposFormComponent implements OnInit {
           // this.volverAlListado(this._router)
         }
       )
+  }
+
+  getJugadores(){
+    this.jugadoresNoEncontrados = false;
+    this.jugadorService.getAllJugadores().subscribe(data => {
+      this.jugadores = data;
+      if (data.length === 0){
+        this.jugadoresNoEncontrados = true;
+      }
+      this.loading = false;
+    })
+  }
+
+  getJugadoresByEquipo(){
+
+  }
+
+  agregarAlEquipo(jugador: Jugador){
+    jugador.equipo_id = this.equipo.equipo_id;
+    this.jugadorService.updateJugador(jugador).subscribe(data => {
+      this.getJugadores();
+    });
+  }
+
+  quitarDelEquipo(jugador: Jugador){
+    jugador.equipo_id = null;
+    this.jugadorService.updateJugador(jugador).subscribe(data => {
+      this.getJugadores();
+    });
   }
 
 }
