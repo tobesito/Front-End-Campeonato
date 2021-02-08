@@ -10,11 +10,11 @@
         <div class="container">
           <div class="pane">
             <div class="headers">
-              <div class="partido_id cell">   ID  </div>
-              <div class="fecha_hora cell">   Fecha  </div>
-              <div class="orden_partido cell">Orden  </div>
-              <div class="estado cell">       Estado </div>
-              <div class="acciones cell">         Acciones          </div>
+              <div class="partido_id cell">   ID       </div>
+              <div class="fecha_hora cell">   Fecha    </div>
+              <div class="orden_partido cell">Orden    </div>
+              <div class="estado cell">       Estado   </div>
+              <div class="acciones cell">     Acciones </div>
             </div>
   
             <div *ngIf="partidosNoEncontrados">
@@ -27,12 +27,12 @@
               <div class="orden_partido cell">  {{partido.orden_partido}}  </div>
               <div class="estado cell">         {{partido.estado}}         </div>
               <div class="acciones cell">
-                  <button title="Eliminar"  class="delete_button" (click)="delete(partido)">                              </button>
-                  <button title="Modificar" class="modify_button" routerLink="/partidos/editar/{{partido.partido_id}}">     </button>
+                  <button title="Eliminar"  class="delete_button" (click)="delete(partido)">                </button>
+                  <button title="Ver" class="ver_button" routerLink="/partidos/ver/{{partido.partido_id}}"> </button>
              </div>
             </div>
             
-            <div class="headers">
+            <!-- <div class="headers">
               <div class="partido_id cell">-</div>
               <div class="nombre cell">-</div>
               <div class="pais_representado cell">-</div>
@@ -40,7 +40,7 @@
               <div class="acciones cell">
                 <button title="Agregar" routerLink="/partidos/nuevo" class="add_button"></button>
               </div>
-            </div>
+            </div> -->
   
           </div>
         </div>

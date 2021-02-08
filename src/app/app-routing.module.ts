@@ -34,8 +34,9 @@ const routes: Routes = [
   {path: 'etapas/nueva/:torneo_id', component: EtapasFormComponent},
 
   {path: 'partidos/list', component: PartidosComponent},
-  {path: 'partidos/nuevo', component: PartidosFormComponent},
-  {path: 'partidos/editar/:id', component: PartidosFormComponent},
+  {path: 'partidos/nuevo/:etapa_id', component: PartidosFormComponent},
+  {path: 'partidos/editar/:id/:etapa_id', component: PartidosFormComponent},
+  {path: 'partidos/ver/:id', component: PartidosFormComponent},
 
   {path: 'equipos/list', component: EquiposComponent},
   {path: 'equipos/nuevo', component: EquiposFormComponent},

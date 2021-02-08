@@ -14,5 +14,5 @@ export interface Etapa {
     torneo_id?: number;
     //torneo: Torneo;
 
-    // partidos?: Partido[];
+    partidos?: Partido[];
 };

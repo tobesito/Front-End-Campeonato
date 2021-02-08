@@ -142,7 +142,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .add_button, .delete_button, .modify_button, .ver_button, .add_telefono_button, 
-.add_profesor_button, .associate_button{
+.add_profesor_button, .associate_button, .add_equipo1_button, .add_equipo2_button{
     height: 20px;
     width: 20px;
     align-items: center;
@@ -173,6 +173,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .associate_button{
     background-image: url("./assets/asociar.jpg");
+}
+.add_equipo1_button{
+    background-image: url("./assets/Equipo1.jpg");
+}
+.add_equipo2_button{
+    background-image: url("./assets/Equipo2.jpg");
 }
 
 .admin-panel {

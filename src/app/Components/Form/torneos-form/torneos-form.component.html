@@ -1,7 +1,7 @@
 <div class="admin-panel" *ngIf="!loading || (!modoEditar && !modoVer)">
     <h1 *ngIf="!modoEditar && !modoVer">Crear Torneo</h1>
     <h1 *ngIf="modoEditar  && !modoVer">Editar Torneo: {{nombre}}</h1>
-    <h1 *ngIf="modoVer">Torneo: {{nombre}}</h1>
+    <h1 *ngIf="modoVer">Viendo el Torneo: {{torneo.nombre}}</h1>
     
     <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.nombre" placeholder="Nombre">
     <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.lugar" placeholder="Lugar">
@@ -10,10 +10,10 @@
     <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.cantidad_equipos" placeholder="Cantidad de equipos">
     <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.jugadores_por_equipo" placeholder="Jugadores por equipo">
     <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.observaciones" placeholder="Observaciones">
-    <div>
-      <input type="text" class="nueva_etapa" [(ngModel)]="nombre_etapa" placeholder="Etapa">
+    <div *ngIf="modoVer || modoEditar">
+      <input type="text" class="nueva_etapa" [disabled]="modoVer" [(ngModel)]="nombre_etapa" placeholder="Etapa">
       <button class="etapa_button" (click)="crearEtapa()" *ngIf="torneo.etapas == ''"> Nueva </button>
-      <button class="etapa_button" (click)="crearSiguienteEtapa()" *ngIf="torneo.etapas.length > 0"> Siguiente </button>
+      <button class="etapa_button" (click)="crearSiguienteEtapa()" [disabled]="modoVer" *ngIf="botonSiguienteEtapa()"> Siguiente </button>
     </div>
     
     <button *ngIf="!modoEditar && !modoVer" (click)="sendTorneo()" routerLink="/torneos/list">Crear Torneo</button>
@@ -25,41 +25,36 @@
             <div class="big_container">
               <div class="top_bar">
                 <div class="etapas" *ngIf="modoEditar || modoVer">
-                  <!-- <select onchange="myFunction()"></select> -->
-                  <select>
-                    <option [value]="etapa.nombre" *ngFor="let etapa of torneo.etapas">{{etapa.nombre}}</option>
+                  <select [(ngModel)]="etapaSeleccionada">
+                    <option [ngValue]="etapa" *ngFor="let etapa of torneo.etapas">{{etapa.nombre}}</option>
                   </select>
-                  <!-- <button class="etapa_button" *ngIf="torneo.etapas != '' && (torneo.etapas < torneo.cantidad_equipos)" (click)="crearEtapa()"> Ver </button> -->
-                  <!-- <button class="etapa_button" (click)="verEtapa()"> Ver </button> -->
                 </div>
               </div>
-              <div class="transparent_bg">
+              <div class="transparent_bg" *ngIf="etapaSeleccionada != undefined">
                 <div class="container">
                   <div class="pane">
                     <div class="headers">
-                      <div class="nombre cell">   Partido              </div>
-                      <div class="equipo cell">   Equipo 1 vs Equipo 2 </div>
-                      <div class="estado cell">    Estado               </div>
-                      <div class="acciones cell"> Acciones             </div>
+                      <div class="orden cell">   Partido  </div>
+                      <div class="estado cell">   Estado   </div>
+                      <div class="acciones cell"> Acciones </div>
                     </div>
           
-                    <div *ngFor="let partido of torneo.etapas[0].partidos" class="results">
-                      <div class="nombre cell"> {{partido.orden_partido}}                                 </div>
-                      <div class="equipo cell"> {{partido.equipo1.nombre}} vs {{partido.equipo2.nombre}} </div>
-                      <div class="estado cell">  {{partido.estado}}                                       </div>
+                    <div *ngFor="let partido of etapaSeleccionada.partidos" class="results">
+                      <div class="orden cell"> {{partido.orden_partido}} </div>
+                      <div class="estado cell"> {{partido.estado}}        </div>
                       <div class="acciones cell">
                           <button title="Eliminar"  class="delete_button" (click)="delete(torneo)">                              </button>
-                          <button title="Modificar" class="modify_button" routerLink="/torneos/editar/{{torneo.torneo_id}}">      </button>
-                          <button title="Ver" class="ver_button" routerLink="/torneos/ver/{{torneo.torneo_id}}">      </button>
+                          <button title="Modificar" class="modify_button" routerLink="/partidos/editar/{{partido.partido_id}}/{{etapaSeleccionada.etapa_id}}">  </button>
+                          <!-- <button title="Ver" class="ver_button" routerLink="/torneos/ver/{{torneo.torneo_id}}">      </button> -->
                      </div>
                     </div>
                     
                     <div class="headers">
-                      <div class="nombre cell">-</div>
-                      <div class="equipo cell">-</div>
+                      <div class="orden cell">-</div>
                       <div class="estado cell">-</div>
                       <div class="acciones cell">
-                        <button title="Agregar" routerLink="/torneos/nuevo" class="add_button"></button>
+                        <!-- <button title="Agregar" routerLink="/partidos/nuevo/{{etapaSeleccionada.etapa_id}}" class="add_button"></button> -->
+                        <button title="Agregar" *ngIf="etapaSeleccionada.partidos.length < (torneo.cantidad_equipos/2)" (click)="crearPartido()" class="add_button"></button>
                       </div>
                     </div>
           
@@ -72,8 +67,3 @@
     </div>
 
 </div>
-
-
-
-
-

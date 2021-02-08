@@ -1,12 +1,67 @@
-<div class="admin-panel">
+<div class="admin-panel" *ngIf="!loading || !modoEditar">
     <h1 *ngIf="!modoEditar">Crear Partido</h1>
     <h1 *ngIf="modoEditar">Editar Partido</h1>
     
-    <input type="text" [(ngModel)]="partido.fecha_hora" placeholder="Fecha y Hora">
-    <input type="text" [(ngModel)]="partido.orden_partido" placeholder="Orden del partido">
-    <input type="text" [(ngModel)]="partido.estado" placeholder="Estado">
+    <input type="text" [disabled]="modoVer" [(ngModel)]="partido.fecha_hora" placeholder="Año/mes/dia">
+    <input type="text" [disabled]="modoVer" [(ngModel)]="partido.orden_partido" placeholder="Orden del partido">
+    <input type="text" [disabled]="modoVer" [(ngModel)]="partido.estado" placeholder="Estado">
+    <input type="text" *ngIf="modoEditar" [disabled]="modoVer" [(ngModel)]="partido.puntos_equipo1" placeholder="Puntos equipo 1">
+    <input type="text" *ngIf="modoEditar" [disabled]="modoVer" [(ngModel)]="partido.puntos_equipo2" placeholder="Puntos equipo 2">
 
+    <div>
+      <input type="text" *ngIf="partido.equipo1 != null" [disabled]="modoVer" [(ngModel)]="partido.equipo1.nombre" placeholder="Equipo 1">
+      <button class="cambiar_button" *ngIf="partido.equipo1 != null"  (click)="quitarEquipo1()">Cambiar</button>
+    </div>
+    <div>
+      <input type="text" *ngIf="partido.equipo2 != null" [disabled]="modoVer" [(ngModel)]="partido.equipo2.nombre" placeholder="Equipo 2">
+      <button class="cambiar_button" *ngIf="partido.equipo2 != null" (click)="quitarEquipo2()">Cambiar</button>
+    </div>
+    
+    
     <button *ngIf="!modoEditar" (click)="sendPartido()" routerLink="/partidos/list">Crear Partido</button>
     <button *ngIf="modoEditar" (click)="updatePartido()" routerLink="/partidos/list">Modificar Partido</button>
+
+
+    <div class="outer_container">
+
+        <div class="big_container">
+          <div class="top_bar">
+          </div>
+          <div class="transparent_bg">
+            <div class="container">
+              <div class="pane">
+                <div class="headers">
+                  <div class="nombre cell">           Nombre            </div>
+                  <div class="pais_representado cell"> Pais representado </div>
+                  <div class="club cell">             Club              </div>
+                  <div class="entrenador cell">       Entrenador        </div>
+                  <div class="acciones cell">         Acciones          </div>
+                </div>  
+                <div *ngFor="let equipo of equipos" class="results">
+                  <div class="nombre cell">            {{equipo.nombre}}            </div>
+                  <div class="pais_representado cell"> {{equipo.pais_representado}} </div>
+                  <div class="club cell">              {{equipo.club}}              </div>
+                  <div class="entrenador cell">        {{equipo.entrenador}}        </div>
+                  <div class="acciones cell">
+                      <button title="Agregar Equipo 1" class="add_equipo1_button" *ngIf="partido.equipo1 == null" (click)="agregarEquipo1(equipo)"> </button>
+                      <button title="Agregar Equipo 2" class="add_equipo2_button" *ngIf="partido.equipo2 == null" (click)="agregarEquipo2(equipo)"> </button>
+                 </div>
+                </div>
+                
+                <div class="headers">
+                  <div class="nombre cell">-</div>
+                  <div class="pais_representado cell">-</div>
+                  <div class="club cell">-</div>
+                  <div class="entrenador cell">-</div>
+                  <div class="acciones cell">
+                    <button title="Agregar" routerLink="/equipos/nuevo" class="add_button"></button>
+                  </div>
+                </div>
+      
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
 </div>
