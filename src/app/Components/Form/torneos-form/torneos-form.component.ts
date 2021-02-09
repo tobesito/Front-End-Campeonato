@@ -28,6 +28,7 @@ export class TorneosFormComponent implements OnInit {
 
   nombre_etapa: string = '';
 
+  etapas: Etapa[];
   torneo: Torneo = {
     nombre: "",
     lugar: "",
@@ -63,8 +64,10 @@ export class TorneosFormComponent implements OnInit {
       .subscribe(
         torneo => (
           this.torneo = torneo,
+          this.etapas = torneo.etapas,
+          this.ordenar(),
           this.loading = false,
-          this.etapaSeleccionada = this.torneo.etapas.length > 0 ? this.torneo.etapas[0] : null
+          this.etapaSeleccionada = this.etapas.length > 0 ? this.etapas[0] : null
         ),
         err => {
           alert(`torneo no encontrada (${id}):\n` +
@@ -111,6 +114,20 @@ export class TorneosFormComponent implements OnInit {
     }
   }
 
+  crearPartido() {
+    var partido: Partido = {
+      orden_partido: this.etapaSeleccionada.partidos.length + 1,
+      estado: 'pendiente'
+    }
+    partido.etapa_id = this.etapaSeleccionada.etapa_id;
+
+    this.partidoService.postPartido(partido).subscribe(data => {
+      this.getTorneo(this.torneo.torneo_id);
+      this.nombre_etapa = '';
+      alert(data);
+    });
+  }
+
   calcularCantidadEtapas(): number {
     var cantidad_etapas: number = 0;
 
@@ -144,17 +161,11 @@ export class TorneosFormComponent implements OnInit {
     return false;
   }
 
-  crearPartido() {
-    var partido: Partido = {
-      orden_partido: this.etapaSeleccionada.partidos.length + 1,
-      estado: 'pendiente'
-    }
-    partido.etapa_id = this.etapaSeleccionada.etapa_id;
+  ordenar(){
+    this.etapas.sort((a, b) => a.etapa_id - b.etapa_id);
 
-    this.partidoService.postPartido(partido).subscribe(data => {
-      this.getTorneo(this.torneo.torneo_id);
-      this.nombre_etapa = '';
-      alert(data);
+    this.etapas.forEach(etapa => {
+      etapa.partidos.sort((a, b) => a.orden_partido - b.orden_partido);
     });
   }
 
