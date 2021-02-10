@@ -1,10 +1,16 @@
 <div class="admin-panel" *ngIf="!loading || !modoEditar">
-    <h1 *ngIf="!modoEditar">Crear Partido</h1>
     <h1 *ngIf="modoEditar">Editar Partido</h1>
     
     <input type="text" [disabled]="modoVer" [(ngModel)]="partido.fecha_hora" placeholder="Año/mes/dia">
-    <input type="text" [disabled]="modoVer" [(ngModel)]="partido.orden_partido" placeholder="Orden del partido">
-    <input type="text" [disabled]="modoVer" [(ngModel)]="partido.estado" placeholder="Estado">
+    <input type="text" [disabled]="true" [(ngModel)]="partido.orden_partido" placeholder="Orden del partido">
+    <!-- <input type="text" [disabled]="modoVer" [(ngModel)]="partido.estado" placeholder="Estado"> -->
+    <select class="select_estado" [(ngModel)]="partido.estado">
+      <!-- <option [ngValue]="i" *ngFor="let etapa of torneo.etapas; index as i">{{etapa.nombre}}</option> -->
+      <option value="pendiente">pendiente</option>
+      <option value="en juego">en juego</option>
+      <option value="suspendido">suspendido</option>
+      <option value="terminado">terminado</option>
+    </select>
     <input type="text" *ngIf="modoEditar" [disabled]="modoVer" [(ngModel)]="partido.puntos_equipo1" placeholder="Puntos equipo 1">
     <input type="text" *ngIf="modoEditar" [disabled]="modoVer" [(ngModel)]="partido.puntos_equipo2" placeholder="Puntos equipo 2">
 
@@ -17,9 +23,7 @@
       <button class="cambiar_button" *ngIf="partido.equipo2 != null" (click)="quitarEquipo2()">Cambiar</button>
     </div>
     
-    
-    <button *ngIf="!modoEditar" (click)="sendPartido()" routerLink="/partidos/list">Crear Partido</button>
-    <button *ngIf="modoEditar" (click)="updatePartido()" routerLink="/partidos/list">Modificar Partido</button>
+    <button *ngIf="modoEditar" (click)="updatePartido()" >Modificar Partido</button>
 
 
     <div class="outer_container">
@@ -32,7 +36,7 @@
               <div class="pane">
                 <div class="headers">
                   <div class="nombre cell">           Nombre            </div>
-                  <div class="pais_representado cell"> Pais representado </div>
+                  <div class="pais_representado cell">Pais representado </div>
                   <div class="club cell">             Club              </div>
                   <div class="entrenador cell">       Entrenador        </div>
                   <div class="acciones cell">         Acciones          </div>

@@ -1,3 +1,4 @@
+import { identifierModuleUrl } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Etapa } from 'src/app/Models/etapa.model';
@@ -25,6 +26,8 @@ export class TorneosFormComponent implements OnInit {
   modoEditar: boolean = false;
   modoVer: boolean = false;
   verEtapa: boolean = false;
+  validar_ver_mas: boolean = false;
+  ver_mas: boolean = false;
 
   nombre_etapa: string = '';
 
@@ -39,6 +42,7 @@ export class TorneosFormComponent implements OnInit {
     observaciones: ""
   };
   etapaSeleccionada: Etapa;
+  indiceSeleccionado: number = -1;
 
   ngOnInit(): void {
     this.modoEditar = this._router.url.indexOf('editar') !== -1;
@@ -67,7 +71,8 @@ export class TorneosFormComponent implements OnInit {
           this.etapas = torneo.etapas,
           this.ordenar(),
           this.loading = false,
-          this.etapaSeleccionada = this.etapas.length > 0 ? this.etapas[0] : null
+          this.indiceSeleccionado = this.etapas.length > 0 ? 0 : null,
+          this.validarVerMas()
         ),
         err => {
           alert(`torneo no encontrada (${id}):\n` +
@@ -116,10 +121,10 @@ export class TorneosFormComponent implements OnInit {
 
   crearPartido() {
     var partido: Partido = {
-      orden_partido: this.etapaSeleccionada.partidos.length + 1,
+      orden_partido: this.torneo.etapas[this.indiceSeleccionado].partidos.length + 1,
       estado: 'pendiente'
     }
-    partido.etapa_id = this.etapaSeleccionada.etapa_id;
+    partido.etapa_id = this.torneo.etapas[this.indiceSeleccionado].etapa_id;
 
     this.partidoService.postPartido(partido).subscribe(data => {
       this.getTorneo(this.torneo.torneo_id);
@@ -127,6 +132,58 @@ export class TorneosFormComponent implements OnInit {
       alert(data);
     });
   }
+
+  crearPartidoSiguienteEtapa() {
+    for (var i = 0, j = 1; i < this.torneo.etapas[this.indiceSeleccionado].partidos.length; i += 2, j++) {
+
+      var partido: Partido = {
+        orden_partido: j,
+        estado: 'pendiente',
+        etapa_id: this.torneo.etapas[this.indiceSeleccionado + 1].etapa_id
+      }
+
+      partido.equipo1_id = this.torneo.etapas[this.indiceSeleccionado].partidos[i].puntos_equipo1 >
+        this.torneo.etapas[this.indiceSeleccionado].partidos[i].puntos_equipo2 ?
+        this.torneo.etapas[this.indiceSeleccionado].partidos[i].equipo1.equipo_id :
+        this.torneo.etapas[this.indiceSeleccionado].partidos[i].equipo2.equipo_id;
+
+      partido.equipo2_id = this.torneo.etapas[this.indiceSeleccionado].partidos[i + 1].puntos_equipo1 >
+        this.torneo.etapas[this.indiceSeleccionado].partidos[i + 1].puntos_equipo2 ?
+        this.torneo.etapas[this.indiceSeleccionado].partidos[i + 1].equipo1.equipo_id :
+        this.torneo.etapas[this.indiceSeleccionado].partidos[i + 1].equipo2.equipo_id;
+
+      this.partidoService.postPartido(partido).subscribe(data => {
+      });
+    }
+    this.getTorneo(this.torneo.torneo_id);
+  }
+
+  borrarPartido(partido: Partido) {
+    if (window.confirm('Está seguro que desea eliminar a: ' + partido.orden_partido + '?')) {
+      this.partidoService.deletePartido(partido.partido_id).subscribe(data => {
+        this.getTorneo(this.torneo.torneo_id);
+      });
+    }
+  }
+
+  finalizarEtapa() {
+    var crear: Boolean = true;
+    this.torneo.etapas[this.indiceSeleccionado].partidos.forEach(partido => {
+      if (partido.estado != "terminado") {
+        crear = false;
+      }
+    });
+    if (crear) {
+      this.crearPartidoSiguienteEtapa();
+      alert("Etapa creada correctamente!");
+    } else {
+      alert("Debe finalizar los partidos de la etapa seleccionada para poder pasar a la siguiente.");
+    }
+  }
+
+
+
+  // Auxiliares
 
   calcularCantidadEtapas(): number {
     var cantidad_etapas: number = 0;
@@ -161,12 +218,38 @@ export class TorneosFormComponent implements OnInit {
     return false;
   }
 
-  ordenar(){
+  ordenar() {
     this.etapas.sort((a, b) => a.etapa_id - b.etapa_id);
 
     this.etapas.forEach(etapa => {
       etapa.partidos.sort((a, b) => a.orden_partido - b.orden_partido);
     });
+  }
+
+  verificarCantidadDePartidosDeEtapa() {
+    if (this.indiceSeleccionado == 0) {
+      if (this.torneo.etapas[this.indiceSeleccionado].partidos.length < (this.torneo.cantidad_equipos / 2)) {
+        return true;
+      }
+    } else if (this.indiceSeleccionado > 0) {
+      if (this.torneo.etapas[this.indiceSeleccionado].partidos.length < this.torneo.etapas[this.indiceSeleccionado - 1].partidos.length / 2) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  verMas() {
+    this.ver_mas = !this.ver_mas;
+  }
+
+  validarVerMas() {
+    this.torneo.etapas[this.indiceSeleccionado].partidos.forEach(partido => {
+      if (partido.estado != "terminado") {
+        this.validar_ver_mas = false;
+      }
+    });
+    this.validar_ver_mas = true;
   }
 
 }

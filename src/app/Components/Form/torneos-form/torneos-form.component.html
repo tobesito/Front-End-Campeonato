@@ -25,36 +25,41 @@
             <div class="big_container">
               <div class="top_bar">
                 <div class="etapas" *ngIf="modoEditar || modoVer">
-                  <select [(ngModel)]="etapaSeleccionada">
-                    <option [ngValue]="etapa" *ngFor="let etapa of torneo.etapas">{{etapa.nombre}}</option>
+                  <select [(ngModel)]="indiceSeleccionado">
+                    <option [ngValue]="i" *ngFor="let etapa of torneo.etapas; index as i">{{etapa.nombre}}</option>
                   </select>
+                  <button class="etapa_button" (click)="finalizarEtapa()"> Finalizar </button>
+                  <button title="Ver mas/menos detalles de partidos" [disabled]="!validar_ver_mas" class="etapa_button" (click)="verMas()"> Ver </button>
                 </div>
               </div>
-              <div class="transparent_bg" *ngIf="etapaSeleccionada != undefined">
+              <div class="transparent_bg" *ngIf="indiceSeleccionado != -1">
                 <div class="container">
                   <div class="pane">
                     <div class="headers">
                       <div class="orden cell">   Partido  </div>
                       <div class="estado cell">   Estado   </div>
+                      <div class="equipos cell" *ngIf="ver_mas">   Equipo1 vs Equipo2   </div>
+                      <div class="fecha cell" *ngIf="ver_mas">   Fecha   </div>
                       <div class="acciones cell"> Acciones </div>
                     </div>
-          
-                    <div *ngFor="let partido of etapaSeleccionada.partidos" class="results">
+                    <div *ngFor="let partido of torneo.etapas[indiceSeleccionado].partidos" class="results">
                       <div class="orden cell"> {{partido.orden_partido}} </div>
                       <div class="estado cell"> {{partido.estado}}        </div>
+                      <div class="equipos cell" *ngIf="ver_mas"> {{partido.equipo1.nombre}}({{partido.puntos_equipo1}}) vs {{partido.equipo2.nombre}}({{partido.puntos_equipo2}})</div>
+                      <div class="fecha cell" *ngIf="ver_mas"> {{partido.fecha_hora}}</div>
                       <div class="acciones cell">
-                          <button title="Eliminar"  class="delete_button" (click)="delete(torneo)">                              </button>
-                          <button title="Modificar" class="modify_button" routerLink="/partidos/editar/{{partido.partido_id}}/{{etapaSeleccionada.etapa_id}}">  </button>
-                          <!-- <button title="Ver" class="ver_button" routerLink="/torneos/ver/{{torneo.torneo_id}}">      </button> -->
+                          <button title="Eliminar"  class="delete_button" (click)="borrarPartido(partido)"></button>
+                          <button title="Modificar" class="modify_button" routerLink="/partidos/editar/{{partido.partido_id}}/{{torneo.etapas[indiceSeleccionado].etapa_id}}">  </button>
                      </div>
                     </div>
                     
                     <div class="headers">
                       <div class="orden cell">-</div>
                       <div class="estado cell">-</div>
+                      <div class="equipos cell" *ngIf="ver_mas">-</div>
+                      <div class="fecha cell" *ngIf="ver_mas">-</div>
                       <div class="acciones cell">
-                        <!-- <button title="Agregar" routerLink="/partidos/nuevo/{{etapaSeleccionada.etapa_id}}" class="add_button"></button> -->
-                        <button title="Agregar" *ngIf="etapaSeleccionada.partidos.length < (torneo.cantidad_equipos/2)" (click)="crearPartido()" class="add_button"></button>
+                        <button title="Agregar" *ngIf="verificarCantidadDePartidosDeEtapa()" (click)="crearPartido()" class="add_button"></button>
                       </div>
                     </div>
           

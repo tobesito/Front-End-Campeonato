@@ -60,9 +60,12 @@ export class PartidosFormComponent implements OnInit {
   }
 
   updatePartido() {
-    this.partido.etapa_id = this.etapa.etapa_id != null ? this.etapa.etapa_id : null;
-    this.partidoService.updatePartido(this.partido).subscribe(data => {
-    });
+    if(this.validarModificacion()){
+      this.partido.etapa_id = this.etapa.etapa_id != null ? this.etapa.etapa_id : null;
+      this.partidoService.updatePartido(this.partido).subscribe(data => {
+      });
+      this.volver(this._router);
+    }
   }
 
   getPartido(id) {
@@ -75,7 +78,6 @@ export class PartidosFormComponent implements OnInit {
         err => {
           alert(`partido no encontrada (${id}):\n` +
             `${err.message}`)
-          // this.volverAlListado(this._router)
         }
       )
   }
@@ -89,7 +91,6 @@ export class PartidosFormComponent implements OnInit {
         err => {
           alert(`Etapa no encontrada (${etapa_id}):\n` +
             `${err.message}`)
-          // this.volverAlListado(this._router)
         }
       )
   }
@@ -132,6 +133,44 @@ export class PartidosFormComponent implements OnInit {
     this.partidoService.updatePartido(this.partido).subscribe(data => {
       this.getPartido(this.partido.partido_id);
     });
+  }
+
+  validarModificacion(){
+    var validar: boolean = false;
+
+    if (this.partido.fecha_hora != '' || this.partido.fecha_hora != null){
+      validar = true;
+    } else {
+      alert('Debe ingresar una fecha correcta: ' + this.partido.fecha_hora);
+    }
+
+    if(this.partido.estado == "terminado"){
+      //si finalizó, y ..
+      if (this.partido.puntos_equipo1 != null && this.partido.puntos_equipo2 != null){
+        //.. los partidos no son null
+        if (this.partido.puntos_equipo1 != this.partido.puntos_equipo2){
+          //y no es empate
+          validar = true;
+        }else{
+          alert('No puede finalizar un partido en empate!');
+        }
+      } else{
+        alert('Debe ingresar los puntos de cada equipo para finalizar el juego');
+      }
+    }
+
+    if (this.partido.equipo1 != null && this.partido.equipo2 != null){
+      validar = true;
+    }else{
+      alert('Debe asignar los equipos!')
+    }
+
+    return validar;
+  }
+
+  private volver(router: Router) {
+    router.navigate(['/torneos','ver', this.etapa.torneo_id])
+    //torneos/ver/1
   }
 
 }
