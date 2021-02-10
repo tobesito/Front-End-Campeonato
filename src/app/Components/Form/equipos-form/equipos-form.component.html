@@ -7,7 +7,10 @@
     <input type="text" [(ngModel)]="equipo.club" placeholder="Club">
     <input type="text" [(ngModel)]="equipo.entrenador" placeholder="Entrenador">
 
-    <div>
+    <button *ngIf="!modoEditar" (click)="sendEquipo()" routerLink="/equipos/list">Crear Equipo</button>
+    <button *ngIf="modoEditar" (click)="updateEquipo()" routerLink="/equipos/list">Modificar Equipo</button>
+
+    <div *ngIf="modoEditar">
         <div class="outer_container">
 
             <div class="big_container">
@@ -48,8 +51,5 @@
             </div>
         </div>
     </div>
-
-    <button *ngIf="!modoEditar" (click)="sendEquipo()" routerLink="/equipos/list">Crear Equipo</button>
-    <button *ngIf="modoEditar" (click)="updateEquipo()" routerLink="/equipos/list">Modificar Equipo</button>
 
 </div>

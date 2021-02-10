@@ -100,7 +100,10 @@ export class TorneosFormComponent implements OnInit {
       etapa.nombre = this.nombre_etapa;
       etapa.torneo_id = this.torneo.torneo_id;
 
-      this.etapaService.postEtapa(etapa).subscribe(data => { });
+      this.etapaService.postEtapa(etapa).subscribe(data => {
+        alert(data);
+        this.getTorneo(this.torneo.torneo_id);
+      });
     } else {
       alert("El nombre de la etapa no puede estar vacío");
     }
@@ -177,6 +180,7 @@ export class TorneosFormComponent implements OnInit {
   borrarPartido(partido: Partido) {
     if (window.confirm('Está seguro que desea eliminar a: ' + partido.orden_partido + '?')) {
       this.partidoService.deletePartido(partido.partido_id).subscribe(data => {
+        alert(data);
         this.getTorneo(this.torneo.torneo_id);
       });
     }
@@ -201,7 +205,32 @@ export class TorneosFormComponent implements OnInit {
     }
   }
 
-  
+  eliminarEtapa() {
+    //Valida que no le siga una etapa
+    if (this.indiceSeleccionado == this.torneo.etapas.length - 1) {
+     
+      //if (this.torneo.etapas[this.indiceSeleccionado].partidos != null) {
+
+         //Valida que no tenga equipos la etapa a borrar
+        if (this.torneo.etapas[this.indiceSeleccionado].partidos.length < 1) {
+          this.etapaService.deleteEtapa(this.torneo.etapas[this.indiceSeleccionado].etapa_id).subscribe(data => {
+            alert(data);
+            this.getTorneo(this.torneo.torneo_id);
+          });
+        } else {
+          alert('La etapa contiene partidos cargados, asegurese de eliminarlos antes de eliminar la etapa');
+        }
+
+      // } else {
+      //   alert('La etapa contiene partidos cargados, asegurese de eliminarlos antes de eliminar la etapa');
+      // }
+    } else {
+      alert('Antes de eliminar esta etapa, debe eliminar las que le siguen');
+    }
+  }
+
+
+
   // Auxiliares
 
   calcularCantidadEtapas(): number {
@@ -271,11 +300,16 @@ export class TorneosFormComponent implements OnInit {
   // Creo que no funciona esto, era para habilitar el boton cuando todos los partidos de la etapa seleccionada esten
   // "terminado"
   validarVerMas() {
-    this.torneo.etapas[this.indiceSeleccionado].partidos.forEach(partido => {
-      if (partido.estado != "terminado") {
-        this.validar_ver_mas = false;
+    if (this.torneo.etapas != null) {
+      if (this.torneo.etapas.length > 0) {
+        this.torneo.etapas[this.indiceSeleccionado].partidos.forEach(partido => {
+          if (partido.estado != "terminado") {
+            this.validar_ver_mas = false;
+          }
+        });
       }
-    });
+    }
+
     this.validar_ver_mas = true;
   }
 

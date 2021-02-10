@@ -8,7 +8,7 @@
     <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.fecha_inicio" placeholder="FechaInicio">
     <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.fecha_fin" placeholder="Fecha Fin">
     <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.cantidad_equipos" placeholder="Cantidad de equipos">
-    <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.jugadores_por_equipo" placeholder="Jugadores por equipo">
+    <input type="number" min="2" max="11" [disabled]="modoVer" [(ngModel)]="torneo.jugadores_por_equipo" placeholder="Jugadores por equipo">
     <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.observaciones" placeholder="Observaciones">
     <div *ngIf="modoVer || modoEditar">
       <input type="text" class="nueva_etapa" [disabled]="modoVer" [(ngModel)]="nombre_etapa" placeholder="Etapa">
@@ -30,6 +30,7 @@
                   </select>
                   <button class="etapa_button" (click)="finalizarEtapa()"> Finalizar </button>
                   <button title="Ver mas/menos detalles de partidos" [disabled]="!validar_ver_mas" class="etapa_button" (click)="verMas()"> Ver </button>
+                  <button class="etapa_button" (click)="eliminarEtapa()"> Eliminar </button>
                 </div>
               </div>
               <div class="transparent_bg" *ngIf="indiceSeleccionado != -1">

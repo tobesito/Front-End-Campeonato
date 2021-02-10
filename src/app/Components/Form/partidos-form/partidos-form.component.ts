@@ -3,9 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Equipo } from 'src/app/Models/equipo.model';
 import { Etapa } from 'src/app/Models/etapa.model';
 import { Partido } from 'src/app/Models/partido.model';
+import { Torneo } from 'src/app/Models/torneo.model';
 import { EquiposService } from 'src/app/Services/equipos.service';
 import { EtapasService } from 'src/app/Services/etapas.service';
 import { PartidosService } from 'src/app/Services/partidos.service';
+import { TorneosService } from 'src/app/Services/torneos.service';
 
 @Component({
   selector: 'app-partidos-form',
@@ -18,7 +20,8 @@ export class PartidosFormComponent implements OnInit {
     private _router: Router,
     private partidoService: PartidosService,
     private etapaService: EtapasService,
-    private equipoService: EquiposService) {
+    private equipoService: EquiposService,
+    private torneoService: TorneosService) {
   }
 
   loading = true;
@@ -26,6 +29,8 @@ export class PartidosFormComponent implements OnInit {
   modoVer: boolean = false;
 
   equipos: Equipo[];
+
+  torneo: Torneo;
 
   etapa: Etapa = {
     nombre: ''
@@ -54,7 +59,6 @@ export class PartidosFormComponent implements OnInit {
       this.getPartido(id);
     }
 
-    this.getEquipos();
   }
 
   // Crea partido
@@ -91,7 +95,8 @@ export class PartidosFormComponent implements OnInit {
     this.etapaService.getEtapa(etapa_id)
       .subscribe(
         etapa => (
-          this.etapa = etapa
+          this.etapa = etapa,
+          this.getTorneo(etapa.torneo_id)
         ),
         err => {
           alert(`Etapa no encontrada (${etapa_id}):\n` +
@@ -100,9 +105,23 @@ export class PartidosFormComponent implements OnInit {
       )
   }
 
+  getTorneo(torneo_id) {
+    this.torneoService.getTorneo(torneo_id)
+      .subscribe(
+        torneo => (
+          this.torneo = torneo,
+          this.getEquipos()
+        ),
+        err => {
+          alert(`Etapa no encontrada (${this.etapa.torneo_id}):\n` +
+            `${err.message}`)
+        }
+      )
+  }
+
   getEquipos() {
-    this.equipoService.getAllEquipos().subscribe(data => {
-      this.equipos = data;
+    this.equipoService.getAllEquipos().subscribe(nuevosEquipos => {
+      this.equipos = nuevosEquipos.filter(equipo => equipo.jugadores.length == this.torneo.jugadores_por_equipo)
     })
   }
 

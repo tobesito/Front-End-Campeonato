@@ -26,19 +26,18 @@ export class TorneosComponent implements OnInit {
     this.torneosNoEncontrados = false;
     this.torneosService.getAllTorneos().subscribe(data => {
       this.torneos = data;
-      if (data.length === 0){
+      if (data.length === 0) {
         this.torneosNoEncontrados = true;
       }
       this.loading = false;
     })
   }
 
-  delete(torneo: Torneo){
-    if (window.confirm('Está seguro que desea eliminar a: ' + torneo.nombre + '?')){
-      this.torneosService.deleteTorneo(torneo.torneo_id).subscribe(data =>{
-        if(data && data['affected']){
-          this.refresh();
-        }
+  delete(torneo: Torneo) {
+    if (window.confirm('Está seguro que desea eliminar a: ' + torneo.nombre + '?')) {
+      this.torneosService.deleteTorneo(torneo.torneo_id).subscribe(data => {
+        alert(data);
+        this.refresh();
       });
     }
   }

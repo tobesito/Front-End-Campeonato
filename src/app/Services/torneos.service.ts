@@ -30,7 +30,7 @@ export class TorneosService {
     return this.http.put(`${this.backEndURL}/torneos/${torneo.torneo_id}`,torneo);
   }
 
-  deleteTorneo(id: number) {
+  deleteTorneo(id: number): Observable<any> {
     return this.http.delete(`${this.backEndURL}/torneos/${id}`);
   }
 }
