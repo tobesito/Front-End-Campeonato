@@ -22,6 +22,7 @@ export class TorneosFormComponent implements OnInit {
     private partidoService: PartidosService) {
   }
 
+  // booleanas para validaciones de controles y demás
   loading = true;
   modoEditar: boolean = false;
   modoVer: boolean = false;
@@ -41,13 +42,17 @@ export class TorneosFormComponent implements OnInit {
     jugadores_por_equipo: null,
     observaciones: ""
   };
-  etapaSeleccionada: Etapa;
+
+  // Indice utilizado para la seleccion de etapas del torneo
   indiceSeleccionado: number = -1;
 
   ngOnInit(): void {
+    // Busca en la ruta los valores "editar o ver" para activar los modos(variables booleanas) y 
+    // con ellas restringir/activar ciertos controles en el html
     this.modoEditar = this._router.url.indexOf('editar') !== -1;
     this.modoVer = this._router.url.indexOf('ver') !== -1;
 
+    //Toma el valor del "id" que se está pasando en la ruta, para luego obtener el torneo a editar
     const id: number = parseInt(this.activatedRoute.snapshot.paramMap.get('id'), 10);
     if (id) {
       this.getTorneo(id);
@@ -63,6 +68,7 @@ export class TorneosFormComponent implements OnInit {
     });
   }
 
+  // Sirve tambien para "refrescar" el Torneo cuando se está editando
   getTorneo(id) {
     this.torneoService.getTorneo(id)
       .subscribe(
@@ -89,6 +95,7 @@ export class TorneosFormComponent implements OnInit {
       siguiente_etapa_id: null
     }
 
+    //Valida que el nombre de la etapa no esté vacio
     if (this.nombre_etapa != '') {
       etapa.nombre = this.nombre_etapa;
       etapa.torneo_id = this.torneo.torneo_id;
@@ -100,7 +107,10 @@ export class TorneosFormComponent implements OnInit {
   }
 
   crearSiguienteEtapa() {
+    //valida que el nombre sea correcto..
     if (this.validarNombreEtapa()) {
+      // ..Valida que la cantidad de etapas que tiene el torneo sea menor
+      // a la cantidad de etapas que puede contener el torneo..
       if (this.torneo.etapas.length < this.calcularCantidadEtapas()) {
         var etapa: Etapa = {
           nombre: this.nombre_etapa,
@@ -134,19 +144,25 @@ export class TorneosFormComponent implements OnInit {
   }
 
   crearPartidoSiguienteEtapa() {
+    // itera sobre los partidos de la etapa seleccionada del torneo "de a 2 partidos",
+    // entonces va seleccionando los equipos ganadores de cada 2 partidos y con ellos,
+    // crea los partidos de la siguiente etapa
     for (var i = 0, j = 1; i < this.torneo.etapas[this.indiceSeleccionado].partidos.length; i += 2, j++) {
-
+      // Inicializo los nuevos partidos para la siguiente etapa
       var partido: Partido = {
         orden_partido: j,
         estado: 'pendiente',
         etapa_id: this.torneo.etapas[this.indiceSeleccionado + 1].etapa_id
       }
-
+      // Armo equipo 1 a partir del partido "par" de la etapa anterior
+      // Si los puntos del equipo 1 son mayores que los del equipo 2, entonces el equipo 1 pasa a la siguiente etapa
       partido.equipo1_id = this.torneo.etapas[this.indiceSeleccionado].partidos[i].puntos_equipo1 >
         this.torneo.etapas[this.indiceSeleccionado].partidos[i].puntos_equipo2 ?
         this.torneo.etapas[this.indiceSeleccionado].partidos[i].equipo1.equipo_id :
         this.torneo.etapas[this.indiceSeleccionado].partidos[i].equipo2.equipo_id;
 
+      // Armo equipo 1 a partir del partido "impar" de la etapa anterior
+      // Si los puntos del equipo 1 son mayores que los del equipo 2, entonces el equipo 1 pasa a la siguiente etapa
       partido.equipo2_id = this.torneo.etapas[this.indiceSeleccionado].partidos[i + 1].puntos_equipo1 >
         this.torneo.etapas[this.indiceSeleccionado].partidos[i + 1].puntos_equipo2 ?
         this.torneo.etapas[this.indiceSeleccionado].partidos[i + 1].equipo1.equipo_id :
@@ -168,11 +184,15 @@ export class TorneosFormComponent implements OnInit {
 
   finalizarEtapa() {
     var crear: Boolean = true;
+    //Si en los partidos de la etapa seleccionada..
     this.torneo.etapas[this.indiceSeleccionado].partidos.forEach(partido => {
+      //no esta terminado.. = no deja crear siguiente etapa
       if (partido.estado != "terminado") {
         crear = false;
       }
     });
+
+
     if (crear) {
       this.crearPartidoSiguienteEtapa();
       alert("Etapa creada correctamente!");
@@ -181,8 +201,7 @@ export class TorneosFormComponent implements OnInit {
     }
   }
 
-
-
+  
   // Auxiliares
 
   calcularCantidadEtapas(): number {
@@ -226,12 +245,17 @@ export class TorneosFormComponent implements OnInit {
     });
   }
 
+  //Verificación para activar/desactivar el botón de "Agregar partido"
   verificarCantidadDePartidosDeEtapa() {
+    // Si es la primer etapa..
     if (this.indiceSeleccionado == 0) {
+      //..verifica que la cantidad de partidos sea menor a la mitad de la cantidad de equipos en el torneo
       if (this.torneo.etapas[this.indiceSeleccionado].partidos.length < (this.torneo.cantidad_equipos / 2)) {
         return true;
       }
+      //Si no es la primer etapa..
     } else if (this.indiceSeleccionado > 0) {
+      //..verifica que la cantidad de partidos sea menor a la mitad de la cantidad de partidos de la etapa anterior
       if (this.torneo.etapas[this.indiceSeleccionado].partidos.length < this.torneo.etapas[this.indiceSeleccionado - 1].partidos.length / 2) {
         return true;
       }
@@ -239,10 +263,13 @@ export class TorneosFormComponent implements OnInit {
     return false;
   }
 
+  // Activado por el boton "Ver", sirve para mostrar/ocultar mas detalles de cada partido de la etapa seleccionada
   verMas() {
     this.ver_mas = !this.ver_mas;
   }
 
+  // Creo que no funciona esto, era para habilitar el boton cuando todos los partidos de la etapa seleccionada esten
+  // "terminado"
   validarVerMas() {
     this.torneo.etapas[this.indiceSeleccionado].partidos.forEach(partido => {
       if (partido.estado != "terminado") {

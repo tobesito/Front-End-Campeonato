@@ -76,10 +76,6 @@ export class EquiposFormComponent implements OnInit {
     })
   }
 
-  getJugadoresByEquipo(){
-
-  }
-
   agregarAlEquipo(jugador: Jugador){
     jugador.equipo_id = this.equipo.equipo_id;
     this.jugadorService.updateJugador(jugador).subscribe(data => {

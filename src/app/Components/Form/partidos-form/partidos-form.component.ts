@@ -41,9 +41,12 @@ export class PartidosFormComponent implements OnInit {
   ngOnInit(): void {
     this.modoEditar = this._router.url.indexOf('editar') !== -1;
     this.modoVer = this._router.url.indexOf('ver') !== -1;
+
+    // captura el etapa_id desde la ruta para consultar a la bdd la etapa
     const etapa_id: number = parseInt(this.activatedRoute.snapshot.paramMap.get('etapa_id'), 10);
+    // captura el id desde la ruta para consultar a la bdd el partido
     const id: number = parseInt(this.activatedRoute.snapshot.paramMap.get('id'), 10);
-    
+
     if (etapa_id) {
       this.getEtapa(etapa_id);
     }
@@ -54,13 +57,15 @@ export class PartidosFormComponent implements OnInit {
     this.getEquipos();
   }
 
+  // Crea partido
   sendPartido() {
     this.partido.etapa_id = this.etapa.etapa_id != null ? this.etapa.etapa_id : null;
     this.partidoService.postPartido(this.partido).subscribe(data => { });
   }
 
+  // Actualiza partido
   updatePartido() {
-    if(this.validarModificacion()){
+    if (this.validarModificacion()) {
       this.partido.etapa_id = this.etapa.etapa_id != null ? this.etapa.etapa_id : null;
       this.partidoService.updatePartido(this.partido).subscribe(data => {
       });
@@ -95,82 +100,87 @@ export class PartidosFormComponent implements OnInit {
       )
   }
 
-  getEquipos(){
+  getEquipos() {
     this.equipoService.getAllEquipos().subscribe(data => {
       this.equipos = data;
     })
   }
 
-  agregarEquipo1(equipo: Equipo){
-    if(this.partido.partido_id == null){
+  agregarEquipo1(equipo: Equipo) {
+    // Si no existe el partido, entonces crea el mismo con la id obtenida
+    if (this.partido.partido_id == null) {
       this.partidoService.postPartido(this.partido).subscribe(data => {
         this.getPartido(this.partido.partido_id);
       });
     }
-    
+
+    // Actualiza el partido respecto del equipo 1, es decir, agrega al partido el equipo1
     this.partido.equipo1_id = equipo.equipo_id;
     this.partidoService.updatePartido(this.partido).subscribe(data => {
       this.getPartido(this.partido.partido_id);
     });
   }
 
-  agregarEquipo2(equipo: Equipo){
+  agregarEquipo2(equipo: Equipo) {
     this.partido.equipo2_id = equipo.equipo_id;
     this.partidoService.updatePartido(this.partido).subscribe(data => {
       this.getPartido(this.partido.partido_id);
     });
   }
 
-  quitarEquipo1(){
+  quitarEquipo1() {
     this.partido.equipo1_id = null;
     this.partidoService.updatePartido(this.partido).subscribe(data => {
       this.getPartido(this.partido.partido_id);
     });
   }
 
-  quitarEquipo2(){
+  quitarEquipo2() {
     this.partido.equipo2_id = null;
     this.partidoService.updatePartido(this.partido).subscribe(data => {
       this.getPartido(this.partido.partido_id);
     });
   }
 
-  validarModificacion(){
+  validarModificacion() {
     var validar: boolean = false;
 
-    if (this.partido.fecha_hora != '' || this.partido.fecha_hora != null){
+    //Valida fecha..
+    if (this.partido.fecha_hora != '' || this.partido.fecha_hora != null) {
       validar = true;
     } else {
       alert('Debe ingresar una fecha correcta: ' + this.partido.fecha_hora);
     }
 
-    if(this.partido.estado == "terminado"){
+    //valida estado y puntaje
+    if (this.partido.estado == "terminado") {
       //si finalizó, y ..
-      if (this.partido.puntos_equipo1 != null && this.partido.puntos_equipo2 != null){
+      if (this.partido.puntos_equipo1 != null && this.partido.puntos_equipo2 != null) {
         //.. los partidos no son null
-        if (this.partido.puntos_equipo1 != this.partido.puntos_equipo2){
+        if (this.partido.puntos_equipo1 != this.partido.puntos_equipo2) {
           //y no es empate
           validar = true;
-        }else{
+        } else {
           alert('No puede finalizar un partido en empate!');
         }
-      } else{
+      } else {
         alert('Debe ingresar los puntos de cada equipo para finalizar el juego');
       }
     }
 
-    if (this.partido.equipo1 != null && this.partido.equipo2 != null){
+    //valida equipos
+    if (this.partido.equipo1 != null && this.partido.equipo2 != null) {
       validar = true;
-    }else{
+    } else {
       alert('Debe asignar los equipos!')
     }
 
     return validar;
   }
 
+  //Vuelve a la ruta del torneo desde la que se accedió a este partido
   private volver(router: Router) {
-    router.navigate(['/torneos','ver', this.etapa.torneo_id])
-    //torneos/ver/1
+    router.navigate(['/torneos', 'ver', this.etapa.torneo_id])
   }
 
 }
