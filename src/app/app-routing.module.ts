@@ -17,12 +17,14 @@ import { PartidosFormComponent } from './Components/Form/partidos-form/partidos-
 import { EquiposFormComponent } from './Components/Form/equipos-form/equipos-form.component';
 import { JugadoresFormComponent } from './Components/Form/jugadores-form/jugadores-form.component';
 
+import { AvionesLeaComponent } from './Components/Pruebas/aviones-lea/aviones-lea.component';
+
 
 
 
 const routes: Routes = [
 
-  {path: 'home', component: HomeComponent},
+  //{path: 'home', component: HomeComponent},
 
   {path: 'torneos/list', component: TorneosComponent},
   {path: 'torneos/nuevo', component: TorneosFormComponent},
@@ -45,6 +47,14 @@ const routes: Routes = [
   {path: 'jugadores/list', component: JugadoresComponent},
   {path: 'jugadores/nuevo', component: JugadoresFormComponent},
   {path: 'jugadores/editar/:id', component: JugadoresFormComponent},
+
+  {path: 'aviones/ver', component: AvionesLeaComponent},
+
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'torneos/list',
+  }
 
   
 ];

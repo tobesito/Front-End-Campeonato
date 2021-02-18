@@ -1,0 +1,87 @@
+<!-- <div style="width: 1200px; margin-left: 15px;">
+    <h2>Modificar Avion</h2>
+
+    <div class="form-group row">
+        <label class="col-sm-1 col-form-label" for="inlineFormCustomSelect">Avion</label>
+        <select class="custom-select col-sm-3" id="inlineFormCustomSelect">
+            <option *ngFor="let plane of planes" [value]=plane> {{ plane.marca }} - {{ plane.modelo}}
+                {{ plane.denominacion_interna }} - {{ plane.capacidad_pasajeros }}
+            </option>
+        </select>
+    </div>
+
+    <form #planetForm="ngForm" (ngSubmit)="onSubmit(planetForm)"> -->
+
+        <h1>Gustavo dentro de form</h1>
+        <div *ngIf= "!loading">
+            <label for="inlineFormCustomSelect">Avion</label>
+            <select id="inlineFormCustomSelect" [(ngModel)]="plane" name="inlineFormCustomSelect">
+                <option *ngFor="let plane of planes" [ngValue]=plane> {{ plane.marca }}-{{ plane.modelo }}-{{plane.denominacion_interna }}-{{ plane.capacidad_pasajeros }}
+                    </option>
+            </select>
+            <div *ngIf= "!loading" >
+                <label for="marca">Marca:</label>
+                <input id="marca"  type="text" name="marca" placeholder="Marca..." 
+                    [(ngModel)]="plane.marca" required>
+                <!-- <span class="form_error" *ngIf="marca.touched && !marca.valid">
+                    La marca es obligatorio
+                </span> -->
+            </div>
+
+            <div *ngIf= "!loading" >
+                <label for="marca">Marca:</label>
+                <input id="marca"  type="text" name="marca" placeholder="Marca..." 
+                    [(ngModel)]="plane.modelo" required>
+                <!-- <span class="form_error" *ngIf="marca.touched && !marca.valid">
+                    La marca es obligatorio
+                </span> -->
+            </div>
+        </div>
+
+        <!-- <div class="col-xs-5" style="margin-left: 3px;">
+            <label class="form-label" for="modelo">Modelo:</label>
+            <input id="modelo" class="form-control" type="text" name="modelo" placeholder="Modelo..."
+                #modelo='ngModel' [(ngModel)]="plane.modelo" required>
+            <span class="form_error" *ngIf="modelo.touched && !modelo.valid">
+                El nombre es obligatorio
+            </span>
+        </div> -->
+
+        <!-- <div  >
+            
+
+            <div class="col-xs-5" style="margin-left: 3px;">
+                <label class="form-label" for="modelo">Modelo:</label>
+                <input id="modelo" class="form-control" type="text" name="modelo" placeholder="Modelo..."
+                    #modelo='ngModel' [(ngModel)]="plane.modelo" required>
+                <span class="form_error" *ngIf="modelo.touched && !modelo.valid">
+                    El nombre es obligatorio
+                </span>
+            </div>
+
+            <div class="col-xs-5" style="margin-left: 3px;">
+                <label class="form-label" for="denominacion_interna">Denominacion Interna: (3 letras)</label>
+                <input id="denominacion_interna" class="form-control" type="text" name="denominacion_interna"
+                    placeholder="Denominacion..." #denominacion_interna='ngModel'
+                    [(ngModel)]="plane.denominacion_interna" required>
+                <span class="form_error" *ngIf="denominacion_interna.touched && !denominacion_interna.valid">
+                    La Ciudad es obligatoria
+                </span>
+            </div>
+
+            <div class="col-xs-5" style="margin-left: 3px;">
+                <label class="form-label" for="capacidad_pasajeros">Capacidad de Pasajeros:</label>
+                <input id="capacidad_pasajeros" class="form-control" type="text" name="capacidad_pasajeros"
+                    placeholder="Capacidad..." #capacidad_pasajeros='ngModel' [(ngModel)]="plane.capacidad_pasajeros"
+                    required>
+                <span class="form_error" *ngIf="capacidad_pasajeros.touched && !capacidad_pasajeros.valid">
+                    El Pais es obligatorio
+                </span>
+            </div>
+
+        </div>
+        <br>
+        <input id="nuevo" type="submit" class="btn btn-success" value="Modificar" style="margin-left: 3px;"
+            [disabled]="!planetForm.form.valid" />
+    </form>
+</div> -->

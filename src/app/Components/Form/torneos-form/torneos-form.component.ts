@@ -60,8 +60,23 @@ export class TorneosFormComponent implements OnInit {
   }
 
   sendTorneo() {
+
+    // if (Date.parse(this.torneo.fecha_inicio.toString()) > Date.now() && 
+    //     Date.parse(this.torneo.fecha_fin.toString()) > Date.now()){
+    //       if (Date.parse(this.torneo.fecha_inicio.toString()) > Date.parse(this.torneo.fecha_fin.toString())){
+            
+    //       }
+    //       else{
+    //         alert('La fecha de Inicio es mayor a la de Fin');
+    //       }
+    // }
+    // else{
+    //   alert('La fecha de inicio y/o fin es/son menor/es a la actual!');
+    // }
     this.torneoService.postTorneo(this.torneo).subscribe(data => { });
   }
+
+  
 
   updateTorneo() {
     this.torneoService.updateTorneo(this.torneo).subscribe(data => {

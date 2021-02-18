@@ -69,12 +69,19 @@ export class PartidosFormComponent implements OnInit {
 
   // Actualiza partido
   updatePartido() {
-    if (this.validarModificacion()) {
-      this.partido.etapa_id = this.etapa.etapa_id != null ? this.etapa.etapa_id : null;
-      this.partidoService.updatePartido(this.partido).subscribe(data => {
-      });
-      this.volver(this._router);
+    if (this.partido.puntos_equipo1.toString() != "" && this.partido.puntos_equipo2.toString() != "") {
+
+
+      if (this.validarModificacion() || this.partido.estado != "terminado") {
+        this.partido.etapa_id = this.etapa.etapa_id != null ? this.etapa.etapa_id : null;
+        this.partidoService.updatePartido(this.partido).subscribe(data => {
+        });
+        this.volver(this._router);
+      }
+    } else {
+      alert("Los puntos no pueden estar vacios");
     }
+
   }
 
   getPartido(id) {
@@ -166,33 +173,29 @@ export class PartidosFormComponent implements OnInit {
 
     //Valida fecha..
     if (this.partido.fecha_hora != '' || this.partido.fecha_hora != null) {
-      validar = true;
-    } else {
-      alert('Debe ingresar una fecha correcta: ' + this.partido.fecha_hora);
-    }
-
-    //valida estado y puntaje
-    if (this.partido.estado == "terminado") {
-      //si finalizó, y ..
-      if (this.partido.puntos_equipo1 != null && this.partido.puntos_equipo2 != null) {
-        //.. los partidos no son null
-        if (this.partido.puntos_equipo1 != this.partido.puntos_equipo2) {
-          //y no es empate
-          validar = true;
+      if (this.partido.estado == "terminado") {
+        //si finalizó, y ..
+        if (this.partido.puntos_equipo1 != null && this.partido.puntos_equipo2 != null) {
+          //.. los partidos no son null
+          if (this.partido.puntos_equipo1 != this.partido.puntos_equipo2) {
+            //valida equipos
+            if (this.partido.equipo1 != null && this.partido.equipo2 != null) {
+              validar = true;
+            } else {
+              alert('Debe asignar los equipos!')
+            }
+          } else {
+            alert('No puede finalizar un partido en empate!');
+          }
         } else {
-          alert('No puede finalizar un partido en empate!');
+          alert('Debe ingresar los puntos de cada equipo para finalizar el juego');
         }
-      } else {
-        alert('Debe ingresar los puntos de cada equipo para finalizar el juego');
       }
+    } else {
+      alert('Debe ingresar una fecha correcta');
     }
 
-    //valida equipos
-    if (this.partido.equipo1 != null && this.partido.equipo2 != null) {
-      validar = true;
-    } else {
-      alert('Debe asignar los equipos!')
-    }
+
 
     return validar;
   }

@@ -19,6 +19,7 @@ import { TorneosFormComponent } from './Components/Form/torneos-form/torneos-for
 import { JugadoresFormComponent } from './Components/Form/jugadores-form/jugadores-form.component';
 import { PartidosFormComponent } from './Components/Form/partidos-form/partidos-form.component';
 import { HomeComponent } from './Components/home/home.component';
+import { AvionesLeaComponent } from './Components/Pruebas/aviones-lea/aviones-lea.component';
 
 
 
@@ -35,7 +36,8 @@ import { HomeComponent } from './Components/home/home.component';
     TorneosFormComponent,
     JugadoresFormComponent,
     PartidosFormComponent,
-    HomeComponent
+    HomeComponent,
+    AvionesLeaComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 <div class="admin-panel" *ngIf="!loading || !modoEditar">
     <h1 *ngIf="modoEditar">Editar Partido</h1>
     
-    <input type="text" [disabled]="modoVer" [(ngModel)]="partido.fecha_hora" placeholder="Año/mes/dia">
+    <input type="date" [disabled]="modoVer" [(ngModel)]="partido.fecha_hora" placeholder="Año/mes/dia">
     <input type="text" [disabled]="true" [(ngModel)]="partido.orden_partido" placeholder="Orden del partido">
     <!-- <input type="text" [disabled]="modoVer" [(ngModel)]="partido.estado" placeholder="Estado"> -->
     <select class="select_estado" [(ngModel)]="partido.estado">

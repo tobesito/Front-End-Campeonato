@@ -5,8 +5,8 @@
     
     <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.nombre" placeholder="Nombre">
     <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.lugar" placeholder="Lugar">
-    <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.fecha_inicio" placeholder="FechaInicio">
-    <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.fecha_fin" placeholder="Fecha Fin">
+    <input type="date" [disabled]="modoVer" [(ngModel)]="torneo.fecha_inicio" placeholder="FechaInicio">
+    <input type="date" [disabled]="modoVer" [(ngModel)]="torneo.fecha_fin" placeholder="Fecha Fin">
     <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.cantidad_equipos" placeholder="Cantidad de equipos">
     <input type="number" min="2" max="11" [disabled]="modoVer" [(ngModel)]="torneo.jugadores_por_equipo" placeholder="Jugadores por equipo">
     <input type="text" [disabled]="modoVer" [(ngModel)]="torneo.observaciones" placeholder="Observaciones">
